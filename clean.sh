@@ -1,5 +1,6 @@
 rm DQMIO.root
-rm hlt_MC_stage1_TRK2.py
+rm hlt_MC_stage1_*.py
 rm openHLT.root
-rm triggerCheckMC_TESTTRK2.log
+rm triggerCheckMC_*.log
 rm setup_cff.pyc
+

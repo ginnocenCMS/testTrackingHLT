@@ -67,4 +67,4 @@ customiseSimL1EmulatorForPostLS1_HI(process)
 #)
 #process.L1UpgradeAnalyzerPath = cms.EndPath(process.L1UpgradeAnalyzer)' >> hlt_MC_stage1_TRK2_ppcode.py
 
-cmsRun hlt_MC_stage1_TRK2_ppcode.py >& triggerCheckMC_TESTTRK2.log
+cmsRun hlt_MC_stage1_TRK2_ppcode.py >& triggerCheckMC_stage1_TRK2_ppcode.log
