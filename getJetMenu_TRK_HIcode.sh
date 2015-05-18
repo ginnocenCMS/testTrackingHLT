@@ -1,6 +1,6 @@
 #proper gt MCHI2_74_V3
 
-hltGetConfiguration /users/ginnocen/myHLTtest_PbPbtracking/V1 --full --offline --mc --unprescale --process TEST --globaltag MCHI2_74_V3 --l1-emulator 'stage1,gt' --l1Xml L1Menu_CollisionsHeavyIons2011_v0_nobsc_notau_centrality_q2_singletrack.v1.xml --output none --max-events 5 --input root://xrootd.unl.edu//store/user/mnguyen/Hydjet_Quenched_MinBias_5020GeV/HydjetMB_740pre8_MCHI2_74_V3_53XBS_DIGI-RAW/6da45e4e90741bc03dbd9aec5f36c050/step2_DIGI_L1_DIGI2RAW_HLT_RAW2DIGI_L1Reco_100_1_nRy.root > hlt_MC_stage1_TRK2_HIcode.py 
+hltGetConfiguration /users/ginnocen/HLTTracking_Iteration0/V4 --full --offline --mc --unprescale --process TEST --globaltag MCHI2_74_V3 --l1-emulator 'stage1,gt' --l1Xml L1Menu_CollisionsHeavyIons2011_v0_nobsc_notau_centrality_q2_singletrack.v1.xml --output none --max-events 5 --input root://xrootd.unl.edu//store/user/mnguyen/Hydjet_Quenched_MinBias_5020GeV/HydjetMB_740pre8_MCHI2_74_V3_53XBS_DIGI-RAW/6da45e4e90741bc03dbd9aec5f36c050/step2_DIGI_L1_DIGI2RAW_HLT_RAW2DIGI_L1Reco_100_1_nRy.root > hlt_MC_stage1_TRK2_HIcode.py 
 
 #hltConfigFromDB --cff --configName /dev/CMSSW_7_4_0/GRun --nopaths --services -PrescaleService,-EvFDaqDirector,-FastMonitoringService > setup_cff.py
 
@@ -67,3 +67,10 @@ customiseSimL1EmulatorForPostLS1_HI(process)
 #process.L1UpgradeAnalyzerPath = cms.EndPath(process.L1UpgradeAnalyzer)' >> hlt_MC_stage1_TRK2_HIcode.py
 
 cmsRun hlt_MC_stage1_TRK2_HIcode.py >& triggerCheckMC_stage1_TRK2_HIcode.log
+
+echo '
+process.Timing=cms.Service("Timing",
+    useJobReport = cms.untracked.bool(True)
+    )
+
+'>> hlt_MC_stage1_TRK2_HIcode.py
