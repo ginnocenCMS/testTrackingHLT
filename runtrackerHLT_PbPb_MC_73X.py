@@ -31,7 +31,7 @@ process.HiForest.HiForestVersion = cms.untracked.string(version)
 process.source = cms.Source("PoolSource",
                             duplicateCheckMode = cms.untracked.string("noDuplicateCheck"),
                             fileNames = cms.untracked.vstring(
-       "file:/afs/cern.ch/work/g/ginnocen/public/ExampleStep2_3_HLT_tracking/output_copyDogaTrackingV15_nRy.root"
+       "file:/afs/cern.ch/work/g/ginnocen/public/ExampleStep2_3_HLT_tracking/output_HIIterTrackingV22_nRy.root"
     ))
 
 # Number of events we want to process, -1 = all events
@@ -79,7 +79,7 @@ process.centralityBin.nonDefaultGlauberModel = cms.string("HydjetDrum5")
 #####################################################################################
 
 process.TFileService = cms.Service("TFileService",
-                                   fileName=cms.string("trackanalyzerHLT_copyDogaTrackingV15_nRy.root"))
+                                   fileName=cms.string("trackanalyzerHLT_output_HIIterTrackingV22_nRy.root"))
 
 #####################################################################################
 # Additional Reconstruction and Analysis: Main Body
@@ -146,7 +146,7 @@ process.pixelTrack.qualityStrings = cms.untracked.vstring('highPurity')
 process.hiTracks.cut = cms.string('quality("highPurity")')
 
 # set track collection to iterative tracking
-process.anaTrack.trackSrc = cms.InputTag("hltHIGeneralTracks")
+process.anaTrack.trackSrc = cms.InputTag("hltHIIter0TrackSelectionHighPurity")
 process.anaTrack.vertexSrc = cms.vstring('hltHISelectedVertex')
 process.anaTrack.beamSpotSrc = cms.untracked.InputTag('hltOnlineBeamSpot')
 
