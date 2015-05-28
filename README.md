@@ -10,3 +10,7 @@ Setting your environment:
 * git cms-merge-topic -u CmsHI:forest_CMSSW_7_4_1_patch1
 * scram build -j4
 
+Then clone the code:
+* cd HeavyIonsAnalysis/JetAnalysis/test/
+* git clone 
+
