@@ -31,7 +31,7 @@ process.HiForest.HiForestVersion = cms.untracked.string(version)
 process.source = cms.Source("PoolSource",
                             duplicateCheckMode = cms.untracked.string("noDuplicateCheck"),
                             fileNames = cms.untracked.vstring(
-       "file:/afs/cern.ch/user/g/ginnocen/PhotonMuonL1HLT/CMSSW_7_4_3/src/testTrackingHLT/MyOutputFile.root"
+       "file:/afs/cern.ch/work/g/ginnocen/public/ExampleStep2_3_HLT_tracking/output_copyDogaTrackingV15_nRy.root"
     ))
 
 # Number of events we want to process, -1 = all events
@@ -79,7 +79,7 @@ process.centralityBin.nonDefaultGlauberModel = cms.string("HydjetDrum5")
 #####################################################################################
 
 process.TFileService = cms.Service("TFileService",
-                                   fileName=cms.string("HiForest.root"))
+                                   fileName=cms.string("trackanalyzerHLT_copyDogaTrackingV15_nRy.root"))
 
 #####################################################################################
 # Additional Reconstruction and Analysis: Main Body
