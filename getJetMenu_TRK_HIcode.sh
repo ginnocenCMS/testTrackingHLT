@@ -1,6 +1,6 @@
 #proper gt MCHI2_74_V3
 
-hltGetConfiguration /users/cfmcginn/testHLT/copyDogaTracking/V15 --full --offline --mc --unprescale --process TEST --globaltag MCHI2_74_V3 --l1-emulator 'stage1,gt' --l1Xml L1Menu_CollisionsHeavyIons2011_v0_nobsc_notau_centrality_q2_singletrack.v1.xml --output none --max-events 100 --input root://xrootd.cmsaf.mit.edu//store/user/mnguyen/Hydjet_Quenched_MinBias_5020GeV/HydjetMB_740pre8_MCHI2_74_V3_53XBS_DIGI-RAW/6da45e4e90741bc03dbd9aec5f36c050/step2_DIGI_L1_DIGI2RAW_HLT_RAW2DIGI_L1Reco_100_1_nRy.root > hlt_MC_stage1_TRK2_HIcode.py 
+hltGetConfiguration /users/cfmcginn/testHLT/copyDogaTracking/V15 --full --offline --mc --unprescale --process TEST --globaltag MCHI2_74_V3 --l1-emulator 'stage1,gt' --l1Xml L1Menu_CollisionsHeavyIons2011_v0_nobsc_notau_centrality_q2_singletrack.v1.xml --output none --max-events 5 --input root://xrootd.cmsaf.mit.edu//store/user/mnguyen/Hydjet_Quenched_MinBias_5020GeV/HydjetMB_740pre8_MCHI2_74_V3_53XBS_DIGI-RAW/6da45e4e90741bc03dbd9aec5f36c050/step2_DIGI_L1_DIGI2RAW_HLT_RAW2DIGI_L1Reco_100_1_nRy.root > hlt_MC_stage1_TRK2_HIcode.py 
 
 #hltConfigFromDB --cff --configName /dev/CMSSW_7_4_0/GRun --nopaths --services -PrescaleService,-EvFDaqDirector,-FastMonitoringService > setup_cff.py
 
@@ -56,7 +56,7 @@ customiseSimL1EmulatorForPostLS1_HI(process)
 
 echo '
 process.Output = cms.OutputModule("PoolOutputModule",
-    fileName = cms.untracked.string ("MyOutputFile.root"),
+    fileName = cms.untracked.string ("/afs/cern.ch/work/g/ginnocen/public/ExampleStep2_3_HLT_tracking/output_copyDogaTrackingV15_nRy.root"),
     outputCommands = cms.untracked.vstring("keep *")
 )
 process.DQMOutput = cms.EndPath( process.Output )
