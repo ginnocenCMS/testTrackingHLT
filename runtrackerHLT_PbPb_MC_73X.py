@@ -146,7 +146,7 @@ process.pixelTrack.qualityStrings = cms.untracked.vstring('highPurity')
 process.hiTracks.cut = cms.string('quality("highPurity")')
 
 # set track collection to iterative tracking
-process.anaTrack.trackSrc = cms.InputTag("hltHIIter0TrackSelectionHighPurity")
+process.anaTrack.trackSrc = cms.InputTag("hltHIIter3Merged")
 process.anaTrack.vertexSrc = cms.vstring('hltHISelectedVertex')
 process.anaTrack.beamSpotSrc = cms.untracked.InputTag('hltOnlineBeamSpot')
 

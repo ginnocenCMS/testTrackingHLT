@@ -19,8 +19,12 @@ void DumpHLT()
   TChain *ftrackTree_Offline = (TChain*)finput_Offline->Get("anaTrack/trackTree");
   TChain *ftrackTree_HLT = (TChain*)finput_HLT->Get("anaTrack/trackTree");
   
-  TH1F*hpT_Offline=new TH1F("hpT_Offline","hpT_Offline",100,0,100);
-  TH1F*hpT_HLT=new TH1F("hpT_HLT","hpT_HLT",100,0,100);
+  TH1F*htrkPt_Offline=new TH1F("htrkPt_Offline","htrkPt_Offline",100,0,100);
+  TH1F*htrkPhi_Offline=new TH1F("htrkPhi_Offline","htrkPhi_Offline",100,0,100);
+  TH1F*htrkEta_Offline=new TH1F("htrkEta_Offline","htrkEta_Offline",100,0,100);
+  TH1F*htrkPt_HLT=new TH1F("htrkPt_HLT","htrkPt_HLT",100,0,100);
+  TH1F*htrkPhi_HLT=new TH1F("htrkPhi_HLT","htrkPhi_HLT",100,0,100);
+  TH1F*htrkEta_HLT=new TH1F("htrkEta_HLT","htrkEta_HLT",100,0,100);
 
   float xVtx_Offline;
   float yVtx_Offline;
@@ -28,8 +32,9 @@ void DumpHLT()
   int nTrk_Offline;
   Float_t trkPt_Offline[10000];
   Float_t trkEta_Offline[10000];
+  Float_t trkPhi_Offline[10000];
   Float_t trkAlgo_Offline[10000];
-  Float_t highPurity_Offline[10000];
+  bool highPurity_Offline[10000];
 
   float xVtx_HLT;
   float yVtx_HLT;
@@ -37,8 +42,9 @@ void DumpHLT()
   int nTrk_HLT;
   Float_t trkPt_HLT[10000]; 
   Float_t trkEta_HLT[10000]; 
+  Float_t trkPhi_HLT[10000]; 
   Float_t trkAlgo_HLT[10000];
-  Float_t highPurity_HLT[10000];
+  bool highPurity_HLT[10000];
 
   ftrackTree_Offline->SetBranchAddress("xVtx",&xVtx_Offline);
   ftrackTree_Offline->SetBranchAddress("yVtx",&yVtx_Offline);
@@ -46,6 +52,7 @@ void DumpHLT()
   ftrackTree_Offline->SetBranchAddress("nTrk",&nTrk_Offline);
   ftrackTree_Offline->SetBranchAddress("trkPt",trkPt_Offline);
   ftrackTree_Offline->SetBranchAddress("trkEta",trkEta_Offline);
+  ftrackTree_Offline->SetBranchAddress("trkPhi",trkPhi_Offline);
   ftrackTree_Offline->SetBranchAddress("trkAlgo",trkAlgo_Offline);
   ftrackTree_Offline->SetBranchAddress("highPurity",highPurity_Offline);
   
@@ -55,6 +62,7 @@ void DumpHLT()
   ftrackTree_HLT->SetBranchAddress("nTrk",&nTrk_HLT);
   ftrackTree_HLT->SetBranchAddress("trkPt",trkPt_HLT);
   ftrackTree_HLT->SetBranchAddress("trkEta",trkEta_HLT);
+  ftrackTree_HLT->SetBranchAddress("trkPhi",trkPhi_HLT);
   ftrackTree_HLT->SetBranchAddress("trkAlgo",trkAlgo_HLT);
   ftrackTree_HLT->SetBranchAddress("highPurity",highPurity_HLT);
 
@@ -64,6 +72,7 @@ void DumpHLT()
     for(Long64_t j = 0; j < l_entries; ++j){
     ftrackTree_Offline->GetEntry(j);
     ftrackTree_HLT->GetEntry(j);
+    
     cout<<"************** event="<<j<<endl;
     cout<<" with xVtx_Offline="<<xVtx_Offline<<endl;
     cout<<" with xVtx_HLT="<<xVtx_HLT<<endl;
@@ -78,15 +87,27 @@ void DumpHLT()
     cout<<" with nTrk_HLT="<<nTrk_HLT<<endl;
     
     for(int itrack_Offline=0;itrack_Offline<nTrk_Offline;itrack_Offline++) {
-      if(trkAlgo_Offline[itrack_Offline]==4 && TMath::Abs(trkEta_Offline[itrack_Offline]<2.4) && highPurity_Offline[itrack_Offline]==1) hpT_Offline->Fill(trkPt_Offline[itrack_Offline]);
+      if(trkAlgo_Offline[itrack_Offline]==4 && TMath::Abs(trkEta_Offline[itrack_Offline]<2.4) && highPurity_Offline[itrack_Offline]==1){ 
+        htrkPt_Offline->Fill(trkPt_Offline[itrack_Offline]);
+        htrkPhi_Offline->Fill(trkPhi_Offline[itrack_Offline]);
+        htrkEta_Offline->Fill(trkEta_Offline[itrack_Offline]);
+      }
     }
     for(int itrack_HLT=0;itrack_HLT<nTrk_HLT;itrack_HLT++) {
-      if(trkAlgo_HLT[itrack_HLT]==4 && TMath::Abs(trkEta_HLT[itrack_HLT]<2.4) && highPurity_HLT[itrack_HLT]==1) hpT_HLT->Fill(trkPt_HLT[itrack_HLT]);
+      if(trkAlgo_HLT[itrack_HLT]==4 && TMath::Abs(trkEta_HLT[itrack_HLT]<2.4) && highPurity_HLT[itrack_HLT]==1){ 
+        htrkPt_HLT->Fill(trkPt_HLT[itrack_HLT]);
+        htrkPhi_HLT->Fill(trkPhi_HLT[itrack_HLT]);
+        htrkEta_HLT->Fill(trkEta_HLT[itrack_HLT]);
+      }
     }
   }
   
   TFile*fout=new TFile("test.root","recreate");
   fout->cd();
-  hpT_Offline->Write();
-  hpT_HLT->Write();
+  htrkPt_Offline->Write();
+  htrkPhi_Offline->Write();
+  htrkEta_Offline->Write();
+  htrkPt_HLT->Write();
+  htrkPhi_HLT->Write();
+  htrkEta_HLT->Write();
 }
