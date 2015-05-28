@@ -4,4 +4,9 @@ testTrackingHLT
 This repository is meant to perform tests on HLT HI tracking.
 
 Setting your environment:
-* less -S tx_summary.txt | grep 1s1v >> out.txt
+* cmsrel CMSSW_7_4_3
+* cd CMSSW_7_4_3/src
+* cmsenv
+* git cms-merge-topic -u CmsHI:forest_CMSSW_7_4_1_patch1
+* scram build -j4
+
