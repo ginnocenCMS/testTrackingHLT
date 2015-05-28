@@ -12,5 +12,5 @@ Setting your environment:
 
 Then clone the code:
 * cd HeavyIonsAnalysis/JetAnalysis/test/
-* git clone 
+* git clone git@github.com:ginnocen/testTrackingHLT.git
 
