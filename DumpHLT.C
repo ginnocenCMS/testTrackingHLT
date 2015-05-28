@@ -27,28 +27,36 @@ void DumpHLT()
   float zVtx_Offline;
   int nTrk_Offline;
   Float_t trkPt_Offline[10000];
+  Float_t trkEta_Offline[10000];
   Float_t trkAlgo_Offline[10000];
+  Float_t highPurity_Offline[10000];
 
   float xVtx_HLT;
   float yVtx_HLT;
   float zVtx_HLT;
   int nTrk_HLT;
   Float_t trkPt_HLT[10000]; 
+  Float_t trkEta_HLT[10000]; 
   Float_t trkAlgo_HLT[10000];
+  Float_t highPurity_HLT[10000];
 
   ftrackTree_Offline->SetBranchAddress("xVtx",&xVtx_Offline);
   ftrackTree_Offline->SetBranchAddress("yVtx",&yVtx_Offline);
   ftrackTree_Offline->SetBranchAddress("zVtx",&zVtx_Offline);
   ftrackTree_Offline->SetBranchAddress("nTrk",&nTrk_Offline);
   ftrackTree_Offline->SetBranchAddress("trkPt",trkPt_Offline);
+  ftrackTree_Offline->SetBranchAddress("trkEta",trkEta_Offline);
   ftrackTree_Offline->SetBranchAddress("trkAlgo",trkAlgo_Offline);
+  ftrackTree_Offline->SetBranchAddress("highPurity",highPurity_Offline);
   
   ftrackTree_HLT->SetBranchAddress("xVtx",&xVtx_HLT);
   ftrackTree_HLT->SetBranchAddress("yVtx",&yVtx_HLT);
   ftrackTree_HLT->SetBranchAddress("zVtx",&zVtx_HLT);
   ftrackTree_HLT->SetBranchAddress("nTrk",&nTrk_HLT);
   ftrackTree_HLT->SetBranchAddress("trkPt",trkPt_HLT);
+  ftrackTree_HLT->SetBranchAddress("trkEta",trkEta_HLT);
   ftrackTree_HLT->SetBranchAddress("trkAlgo",trkAlgo_HLT);
+  ftrackTree_HLT->SetBranchAddress("highPurity",highPurity_HLT);
 
 
   Long64_t l_entries = ftrackTree_Offline->GetEntries();
@@ -70,10 +78,10 @@ void DumpHLT()
     cout<<" with nTrk_HLT="<<nTrk_HLT<<endl;
     
     for(int itrack_Offline=0;itrack_Offline<nTrk_Offline;itrack_Offline++) {
-      if(trkAlgo_Offline[itrack_Offline]==4) hpT_Offline->Fill(trkPt_Offline[itrack_Offline]);
+      if(trkAlgo_Offline[itrack_Offline]==4 && TMath::Abs(trkEta_Offline[itrack_Offline]<2.4) && highPurity_Offline[itrack_Offline]==1) hpT_Offline->Fill(trkPt_Offline[itrack_Offline]);
     }
     for(int itrack_HLT=0;itrack_HLT<nTrk_HLT;itrack_HLT++) {
-      if(trkAlgo_HLT[itrack_HLT]==4) hpT_HLT->Fill(trkPt_HLT[itrack_HLT]);
+      if(trkAlgo_HLT[itrack_HLT]==4 && TMath::Abs(trkEta_HLT[itrack_HLT]<2.4) && highPurity_HLT[itrack_HLT]==1) hpT_HLT->Fill(trkPt_HLT[itrack_HLT]);
     }
   }
   
