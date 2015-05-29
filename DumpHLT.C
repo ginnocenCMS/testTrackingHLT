@@ -29,9 +29,12 @@ void DumpHLT(int interation=0)
   TH1F*htrkPt_Offline=new TH1F("htrkPt_Offline","htrkPt_Offline",50,0,50);
   TH1F*htrkPhi_Offline=new TH1F("htrkPhi_Offline","htrkPhi_Offline",50,-5,5);
   TH1F*htrkEta_Offline=new TH1F("htrkEta_Offline","htrkEta_Offline",50,-5,5);
+  TH1F*htrkDxy_Offline=new TH1F("htrkDxy_Offline","htrkDxy_Offline",100,-0.2,0.2);
   TH1F*htrkPt_HLT=new TH1F("htrkPt_HLT","htrkPt_HLT",50,0,50);
   TH1F*htrkPhi_HLT=new TH1F("htrkPhi_HLT","htrkPhi_HLT",50,-5,5);
   TH1F*htrkEta_HLT=new TH1F("htrkEta_HLT","htrkEta_HLT",50,-5,5);
+  TH1F*htrkDxy_HLT=new TH1F("htrkDxy_HLT","htrkDxy_HLT",100,-0.2,0.2);
+
 
   float xVtx_Offline;
   float yVtx_Offline;
@@ -41,6 +44,7 @@ void DumpHLT(int interation=0)
   Float_t trkEta_Offline[10000];
   Float_t trkPhi_Offline[10000];
   Float_t trkAlgo_Offline[10000];
+  Float_t trkDxy_Offline[10000];
   bool highPurity_Offline[10000];
 
   float xVtx_HLT;
@@ -51,6 +55,7 @@ void DumpHLT(int interation=0)
   Float_t trkEta_HLT[10000]; 
   Float_t trkPhi_HLT[10000]; 
   Float_t trkAlgo_HLT[10000];
+  Float_t trkDxy_HLT[10000];
   bool highPurity_HLT[10000];
 
   ftrackTree_Offline->SetBranchAddress("xVtx",&xVtx_Offline);
@@ -61,6 +66,7 @@ void DumpHLT(int interation=0)
   ftrackTree_Offline->SetBranchAddress("trkEta",trkEta_Offline);
   ftrackTree_Offline->SetBranchAddress("trkPhi",trkPhi_Offline);
   ftrackTree_Offline->SetBranchAddress("trkAlgo",trkAlgo_Offline);
+  ftrackTree_Offline->SetBranchAddress("trkDxy1",trkDxy_Offline);
   ftrackTree_Offline->SetBranchAddress("highPurity",highPurity_Offline);
   
   ftrackTree_HLT->SetBranchAddress("xVtx",&xVtx_HLT);
@@ -71,6 +77,7 @@ void DumpHLT(int interation=0)
   ftrackTree_HLT->SetBranchAddress("trkEta",trkEta_HLT);
   ftrackTree_HLT->SetBranchAddress("trkPhi",trkPhi_HLT);
   ftrackTree_HLT->SetBranchAddress("trkAlgo",trkAlgo_HLT);
+  ftrackTree_HLT->SetBranchAddress("trkDxy1",trkDxy_HLT);
   ftrackTree_HLT->SetBranchAddress("highPurity",highPurity_HLT);
 
 
@@ -98,6 +105,7 @@ void DumpHLT(int interation=0)
         htrkPt_Offline->Fill(trkPt_Offline[itrack_Offline]);
         htrkPhi_Offline->Fill(trkPhi_Offline[itrack_Offline]);
         htrkEta_Offline->Fill(trkEta_Offline[itrack_Offline]);
+        htrkDxy_Offline->Fill(trkDxy_Offline[itrack_Offline]);
       }
     }
     for(int itrack_HLT=0;itrack_HLT<nTrk_HLT;itrack_HLT++) {
@@ -105,6 +113,8 @@ void DumpHLT(int interation=0)
         htrkPt_HLT->Fill(trkPt_HLT[itrack_HLT]);
         htrkPhi_HLT->Fill(trkPhi_HLT[itrack_HLT]);
         htrkEta_HLT->Fill(trkEta_HLT[itrack_HLT]);
+        htrkDxy_HLT->Fill(trkDxy_HLT[itrack_HLT]);
+
       }
     }
   }
@@ -113,13 +123,15 @@ void DumpHLT(int interation=0)
   htrkPt_HLT->SetLineWidth(3);
   htrkPhi_HLT->SetLineWidth(3);
   htrkEta_HLT->SetLineWidth(3);
+  htrkDxy_HLT->SetLineWidth(3);
 
   htrkPt_Offline->SetLineWidth(2);
   htrkPhi_Offline->SetLineWidth(2);
   htrkEta_Offline->SetLineWidth(2);
-  
-  TCanvas *cplots=new TCanvas("cplots","cplots",1000,400);
-  cplots->Divide(3,1);
+  htrkDxy_Offline->SetLineWidth(3);
+
+  TCanvas *cplots=new TCanvas("cplots","cplots",1000,700);
+  cplots->Divide(2,2);
   cplots->cd(1);
   htrkPt_HLT->SetLineColor(2);
   htrkPt_HLT->Draw();
@@ -132,6 +144,11 @@ void DumpHLT(int interation=0)
   htrkPhi_HLT->SetLineColor(2);
   htrkPhi_HLT->Draw();
   htrkPhi_Offline->Draw("same");
+  cplots->cd(4);
+  htrkDxy_HLT->SetLineColor(2);
+  htrkDxy_HLT->Draw();
+  htrkDxy_Offline->Draw("same");
+
   cplots->SaveAs(Form("cplots_iteration%d.pdf",interation));
       
   TFile*fout=new TFile(Form("test_iteration%d.root",interation),"recreate");
@@ -139,7 +156,10 @@ void DumpHLT(int interation=0)
   htrkPt_Offline->Write();
   htrkPhi_Offline->Write();
   htrkEta_Offline->Write();
+  htrkDxy_Offline->Write();
   htrkPt_HLT->Write();
   htrkPhi_HLT->Write();
   htrkEta_HLT->Write();
+  htrkDxy_HLT->Write();
+
 }
