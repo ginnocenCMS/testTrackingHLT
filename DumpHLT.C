@@ -8,8 +8,15 @@
 #include <vector>
 #include <algorithm>
 
-void DumpHLT()
+void DumpHLT(int interation=0)
 {
+
+  int flagiteration=-1;
+  if (interation==0) flagiteration=4;
+  if (interation==1) flagiteration=7;
+  if (interation==2) flagiteration=5;
+  if (interation==3) flagiteration=6;
+  
   TString inputfile_Offline = "HiForest_Offline_nRy.root";
   TString inputfile_HLT = "trackanalyzerHLT_output_HIIterTrackingV22_nRy.root";
   
@@ -19,12 +26,12 @@ void DumpHLT()
   TChain *ftrackTree_Offline = (TChain*)finput_Offline->Get("anaTrack/trackTree");
   TChain *ftrackTree_HLT = (TChain*)finput_HLT->Get("anaTrack/trackTree");
   
-  TH1F*htrkPt_Offline=new TH1F("htrkPt_Offline","htrkPt_Offline",100,0,50);
-  TH1F*htrkPhi_Offline=new TH1F("htrkPhi_Offline","htrkPhi_Offline",100,-5,5);
-  TH1F*htrkEta_Offline=new TH1F("htrkEta_Offline","htrkEta_Offline",100,-5,5);
-  TH1F*htrkPt_HLT=new TH1F("htrkPt_HLT","htrkPt_HLT",100,0,50);
-  TH1F*htrkPhi_HLT=new TH1F("htrkPhi_HLT","htrkPhi_HLT",100,-5,5);
-  TH1F*htrkEta_HLT=new TH1F("htrkEta_HLT","htrkEta_HLT",100,-5,5);
+  TH1F*htrkPt_Offline=new TH1F("htrkPt_Offline","htrkPt_Offline",50,0,50);
+  TH1F*htrkPhi_Offline=new TH1F("htrkPhi_Offline","htrkPhi_Offline",50,-5,5);
+  TH1F*htrkEta_Offline=new TH1F("htrkEta_Offline","htrkEta_Offline",50,-5,5);
+  TH1F*htrkPt_HLT=new TH1F("htrkPt_HLT","htrkPt_HLT",50,0,50);
+  TH1F*htrkPhi_HLT=new TH1F("htrkPhi_HLT","htrkPhi_HLT",50,-5,5);
+  TH1F*htrkEta_HLT=new TH1F("htrkEta_HLT","htrkEta_HLT",50,-5,5);
 
   float xVtx_Offline;
   float yVtx_Offline;
@@ -87,14 +94,14 @@ void DumpHLT()
     cout<<" with nTrk_HLT="<<nTrk_HLT<<endl;
     
     for(int itrack_Offline=0;itrack_Offline<nTrk_Offline;itrack_Offline++) {
-      if(trkAlgo_Offline[itrack_Offline]==4 && TMath::Abs(trkEta_Offline[itrack_Offline]<2.4) && highPurity_Offline[itrack_Offline]==1){ 
+      if(trkAlgo_Offline[itrack_Offline]==flagiteration && TMath::Abs(trkEta_Offline[itrack_Offline]<2.4) && highPurity_Offline[itrack_Offline]==1){ 
         htrkPt_Offline->Fill(trkPt_Offline[itrack_Offline]);
         htrkPhi_Offline->Fill(trkPhi_Offline[itrack_Offline]);
         htrkEta_Offline->Fill(trkEta_Offline[itrack_Offline]);
       }
     }
     for(int itrack_HLT=0;itrack_HLT<nTrk_HLT;itrack_HLT++) {
-      if(trkAlgo_HLT[itrack_HLT]==4 && TMath::Abs(trkEta_HLT[itrack_HLT]<2.4) && highPurity_HLT[itrack_HLT]==1){ 
+      if(trkAlgo_HLT[itrack_HLT]==flagiteration && TMath::Abs(trkEta_HLT[itrack_HLT]<2.4) && highPurity_HLT[itrack_HLT]==1){ 
         htrkPt_HLT->Fill(trkPt_HLT[itrack_HLT]);
         htrkPhi_HLT->Fill(trkPhi_HLT[itrack_HLT]);
         htrkEta_HLT->Fill(trkEta_HLT[itrack_HLT]);
@@ -125,9 +132,9 @@ void DumpHLT()
   htrkPhi_HLT->SetLineColor(2);
   htrkPhi_HLT->Draw();
   htrkPhi_Offline->Draw("same");
-  cplots->SaveAs("cplots.pdf");
+  cplots->SaveAs(Form("cplots_iteration%d.pdf",interation));
       
-  TFile*fout=new TFile("test.root","recreate");
+  TFile*fout=new TFile(Form("test_iteration%d.root",interation),"recreate");
   fout->cd();
   htrkPt_Offline->Write();
   htrkPhi_Offline->Write();
