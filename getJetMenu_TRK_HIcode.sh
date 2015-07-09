@@ -38,7 +38,7 @@ customiseSimL1EmulatorForPostLS1_HI(process)
 
 echo '
 process.Output = cms.OutputModule("PoolOutputModule",
-    fileName = cms.untracked.string ("/afs/cern.ch/work/g/ginnocen/public/ExampleStep2_3_HLT_tracking/output_HIIterTrackingV22_nRy.root"),
+    fileName = cms.untracked.string ("output_HIIterTrackingV22_nRy.root"),
     outputCommands = cms.untracked.vstring("keep *")
 )
 process.DQMOutput = cms.EndPath( process.Output )
