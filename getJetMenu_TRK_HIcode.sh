@@ -1,6 +1,6 @@
 #proper gt MCHI2_74_V3
 
-hltGetConfiguration /users/ginnocen/HLTb_Jet80Tracking/V18 --full --offline --mc --unprescale --process TEST --globaltag MCHI2_74_V3 --l1-emulator 'stage1,gt' --l1Xml L1Menu_CollisionsHeavyIons2015.v1.xml --output none --max-events 5 --input root://xrootd.cmsaf.mit.edu//store/user/mnguyen/Hydjet_Quenched_MinBias_5020GeV/HydjetMB_740pre8_MCHI2_74_V3_53XBS_DIGI-RAW/6da45e4e90741bc03dbd9aec5f36c050/step2_DIGI_L1_DIGI2RAW_HLT_RAW2DIGI_L1Reco_100_1_nRy.root > hlt_MC_stage1_TRK2_HIcode.py 
+hltGetConfiguration /users/ginnocen/HLTb_Jet80Tracking/V18 --full --offline --mc --unprescale --process TEST --globaltag auto:run2_mc_HIon --l1-emulator 'stage1,gt' --l1Xml L1Menu_CollisionsHeavyIons2015.v1.xml --output none --max-events 5 --input root://xrootd.cmsaf.mit.edu//store/user/mnguyen/Hydjet_Quenched_MinBias_5020GeV/HydjetMB_740pre8_MCHI2_74_V3_53XBS_DIGI-RAW/6da45e4e90741bc03dbd9aec5f36c050/step2_DIGI_L1_DIGI2RAW_HLT_RAW2DIGI_L1Reco_100_1_nRy.root > hlt_MC_stage1_TRK2_HIcode.py 
 
 sed -i '/process = cms.Process( "TEST" )/a process.load("setup_cff")' hlt_MC_stage1_TRK2_HIcode.py
 
