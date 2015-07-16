@@ -6,7 +6,7 @@
 #file:/afs/cern.ch/work/i/istaslis/public/forGM/step2_DIGI_L1_DIGI2RAW_RAW2DIGI_L1Reco_PU_100_1_2fl.root
 #root://xrootd.cmsaf.mit.edu//store/user/mnguyen/Hydjet_Quenched_MinBias_5020GeV/HydjetMB_740pre8_MCHI2_74_V3_53XBS_DIGI-RAW/6da45e4e90741bc03dbd9aec5f36c050/step2_DIGI_L1_DIGI2RAW_HLT_RAW2DIGI_L1Reco_100_1_nRy.root
 
-hltGetConfiguration /users/zhchen/HISingleTrack/V16 --full --offline --mc --unprescale --process TEST --globaltag MCHI2_74_V3 --l1-emulator 'stage1,gt' --l1Xml L1Menu_CollisionsHeavyIons2015.v1.xml --output none --max-events 5 --input root://xrootd.cmsaf.mit.edu//store/user/mnguyen/Hydjet_Quenched_MinBias_5020GeV/HydjetMB_740pre8_MCHI2_74_V3_53XBS_DIGI-RAW/6da45e4e90741bc03dbd9aec5f36c050/step2_DIGI_L1_DIGI2RAW_HLT_RAW2DIGI_L1Reco_100_1_nRy.root > hlt_MC_stage1_TRK2_HIcode.py 
+hltGetConfiguration /users/zhchen/HIIterTracking/V28 --full --offline --mc --unprescale --process TEST --globaltag 75X_mcRun2_HeavyIon_v1 --l1-emulator 'stage1,gt' --l1Xml L1Menu_CollisionsHeavyIons2015.v1.xml --output none --max-events 5 --input root://xrootd.cmsaf.mit.edu//store/user/mnguyen/Hydjet_Quenched_MinBias_5020GeV/HydjetMB_740pre8_MCHI2_74_V3_53XBS_DIGI-RAW/6da45e4e90741bc03dbd9aec5f36c050/step2_DIGI_L1_DIGI2RAW_HLT_RAW2DIGI_L1Reco_100_1_nRy.root > hlt_MC_stage1_TRK2_HIcode.py 
 
 sed -i '/process = cms.Process( "TEST" )/a process.load("setup_cff")' hlt_MC_stage1_TRK2_HIcode.py
 
@@ -37,10 +37,10 @@ if hasattr(process, "cscReEmulTriggerPrimitiveDigis"):
 
 echo '' >> hlt_MC_stage1_TRK2_HIcode.py
 
-#echo '
-#from L1Trigger.L1TCommon.customsPostLS1 import customiseSimL1EmulatorForPostLS1_HI
-#customiseSimL1EmulatorForPostLS1_HI(process)
-#' >> hlt_MC_stage1_TRK2_HIcode.py
+echo '
+from L1Trigger.L1TCommon.customsPostLS1 import customiseSimL1EmulatorForPostLS1_HI
+customiseSimL1EmulatorForPostLS1_HI(process)
+' >> hlt_MC_stage1_TRK2_HIcode.py
 
 #echo ' 
 #process.Output = cms.OutputModule("PoolOutputModule",
