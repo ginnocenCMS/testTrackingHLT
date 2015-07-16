@@ -37,10 +37,10 @@ if hasattr(process, "cscReEmulTriggerPrimitiveDigis"):
 
 echo '' >> hlt_MC_stage1_TRK2_HIcode.py
 
-echo '
-from L1Trigger.L1TCommon.customsPostLS1 import customiseSimL1EmulatorForPostLS1_HI
-customiseSimL1EmulatorForPostLS1_HI(process)
-' >> hlt_MC_stage1_TRK2_HIcode.py
+#echo '
+#from L1Trigger.L1TCommon.customsPostLS1 import customiseSimL1EmulatorForPostLS1_HI
+#customiseSimL1EmulatorForPostLS1_HI(process)
+#' >> hlt_MC_stage1_TRK2_HIcode.py
 
 #echo ' 
 #process.Output = cms.OutputModule("PoolOutputModule",
