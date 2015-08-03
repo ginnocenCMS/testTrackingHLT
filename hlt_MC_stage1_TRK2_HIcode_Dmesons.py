@@ -1457,33 +1457,8 @@ process.hltHIFullTrackCandsForHITrackTrigger = cms.EDProducer( "ConcreteChargedC
     particleType = cms.string( "pi+" )
 )
 
-
-process.hltDisplacedVtxProducerD0 = cms.EDProducer( "HLTDisplacedDitkVtxProducer",
-    Src = cms.InputTag( "hltFastPixelBLifetimeL3Associator" ),
-    MinTrackPt = cms.double( 2.0 ),
-    MaxEta = cms.double( 2.3 ),
-    MaxInvMass = cms.double( 2.10 ),
-    MinPtPair = cms.double( 5.0 ),
-    MinInvMass = cms.double( 1.55 )
-)
-
-process.hltVertexFilterD0 = cms.EDFilter( "HLTDisplacedDmesonVtxFilter",
-    saveTags = cms.bool( True ),
-    PrimaryVerticesTag   = cms.InputTag("hiSelectedVertex"),
-    BeamSpotTag = cms.InputTag( "hltOnlineBeamSpot" ),
-    decaylength3D = cms.bool(True),
-    CosinePointingAngle3D = cms.bool(True),
-    MinLxyzSignificance = cms.double( 2.0 ),
-    MinLxySignificance = cms.double( 2.0 ),
-    MaxNormalisedChi2 = cms.double( 8.0 ),
-    MinVtxProbability = cms.double( 0.02 ),
-    MinCosinePointingAngle = cms.double( 0.9 ),
-    DisplacedVertexTag = cms.InputTag( "hltDisplacedVtxProducerD0" )
-)
-
-
 process.hltDisplacedtktkVtxProducerD0 = cms.EDProducer( "HLTDisplacedtktkVtxProducer",
-    Src = cms.InputTag("hltIter2MergedForBTag"),
+    Src = cms.InputTag("hltHIIter3Merged"),
     MinTrackPt = cms.double( 2.0 ),
     MaxEta = cms.double( 2.3 ),
     MaxInvMass = cms.double( 2.10 ),
@@ -1502,17 +1477,16 @@ process.hlttktkVertexFilterD0 = cms.EDFilter( "HLTDisplacedDmesonVtxFilter",
     MaxNormalisedChi2 = cms.double( 8.0 ),
     MinVtxProbability = cms.double( 0.02 ),
     MinCosinePointingAngle = cms.double( 0.9 ),
-    DisplacedVertexTag = cms.InputTag( "hltDisplacedVtxProducerD0" )
+    DisplacedVertexTag = cms.InputTag( "hltDisplacedtktkVtxProducerD0" )
 )
-
 
 process.dMesontktkTagger = cms.Sequence(process.hltDisplacedtktkVtxProducerD0+process.hlttktkVertexFilterD0)
 #play with cuts
-process.hltDisplacedVtxProducerD0.MinPtPair = cms.double( 10.0 )
-process.hltVertexFilterD0.MinLxyzSignificance = 2.5
-process.hltVertexFilterD0.MinCosinePointingAngle = 0.95
-process.hltVertexFilterD0.MaxNormalisedChi2 = 10.0
-process.hltVertexFilterD0.MinVtxProbability = cms.double(0.00)
+#process.hltDisplacedVtxProducerD0.MinPtPair = cms.double( 10.0 )
+#process.hltVertexFilterD0.MinLxyzSignificance = 2.5
+#process.hltVertexFilterD0.MinCosinePointingAngle = 0.95
+#process.hltVertexFilterD0.MaxNormalisedChi2 = 10.0
+#process.hltVertexFilterD0.MinVtxProbability = cms.double(0.00)
 
 process.hltBoolEnd = cms.EDFilter( "HLTBool",
     result = cms.bool( True )
