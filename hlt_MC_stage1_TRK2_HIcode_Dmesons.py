@@ -1468,7 +1468,7 @@ process.hltDisplacedtktkVtxProducerD0 = cms.EDProducer( "HLTDisplacedtktkVtxProd
 
 process.hlttktkVertexFilterD0 = cms.EDFilter( "HLTDisplacedDmesonVtxFilter",
     saveTags = cms.bool( True ),
-    PrimaryVerticesTag   = cms.InputTag("hiSelectedVertex"),
+    PrimaryVerticesTag   = cms.InputTag("hltHISelectedVertex"),
     BeamSpotTag = cms.InputTag( "hltOnlineBeamSpot" ),
     decaylength3D = cms.bool(True),
     CosinePointingAngle3D = cms.bool(True),
