@@ -1556,7 +1556,7 @@ process.hltHIIter0TrackSelectionHighPurityForjets = cms.EDProducer( "AnalyticalT
     chi2n_par = cms.double( 9999.0 ),
     useVtxError = cms.bool( True ),
     nSigmaZ = cms.double( 9999.0 ),
-    dz_par2 = cms.vdouble( 3.0, 0.0 ),
+    dz_par2 = cms.vdouble( 999999.0, 0.0 ),
     applyAdaptedPVCuts = cms.bool( True ),
     min_eta = cms.double( -9999.0 ),
     dz_par1 = cms.vdouble( 9999.0, 0.0 ),
@@ -1578,7 +1578,7 @@ process.hltHIIter0TrackSelectionHighPurityForjets = cms.EDProducer( "AnalyticalT
     chi2n_no1Dmod_par = cms.double( 0.15 ),
     vertices = cms.InputTag( "hltHISelectedVertex" ),
     max_eta = cms.double( 9999.0 ),
-    d0_par2 = cms.vdouble( 3.0, 0.0 ),
+    d0_par2 = cms.vdouble( 999999.0, 0.0 ),
     d0_par1 = cms.vdouble( 9999.0, 0.0 ),
     res_par = cms.vdouble( 99999.0, 99999.0 ),
     minHitsToBypassChecks = cms.uint32( 20 )
@@ -1762,7 +1762,7 @@ process.hltHIIter1TrackSelectionHighPurityForjets = cms.EDProducer( "AnalyticalT
     chi2n_par = cms.double( 9999.0 ),
     useVtxError = cms.bool( True ),
     nSigmaZ = cms.double( 9999.0 ),
-    dz_par2 = cms.vdouble( 3.0, 0.0 ),
+    dz_par2 = cms.vdouble( 999999.0, 0.0 ),
     applyAdaptedPVCuts = cms.bool( False ),
     min_eta = cms.double( -9999.0 ),
     dz_par1 = cms.vdouble( 9999.0, 0.0 ),
@@ -1784,7 +1784,7 @@ process.hltHIIter1TrackSelectionHighPurityForjets = cms.EDProducer( "AnalyticalT
     chi2n_no1Dmod_par = cms.double( 0.15 ),
     vertices = cms.InputTag( "hltHISelectedVertex" ),
     max_eta = cms.double( 9999.0 ),
-    d0_par2 = cms.vdouble( 3.0, 0.0 ),
+    d0_par2 = cms.vdouble( 999999.0, 0.0 ),
     d0_par1 = cms.vdouble( 9999.0, 0.0 ),
     res_par = cms.vdouble( 99999.0, 99999.0 ),
     minHitsToBypassChecks = cms.uint32( 20 )
@@ -1991,7 +1991,7 @@ process.hltHIIter2TrackSelectionHighPurityForjets = cms.EDProducer( "AnalyticalT
     chi2n_par = cms.double( 9999.0 ),
     useVtxError = cms.bool( True ),
     nSigmaZ = cms.double( 9999.0 ),
-    dz_par2 = cms.vdouble( 3.0, 0.0 ),
+    dz_par2 = cms.vdouble( 999999.0, 0.0 ),
     applyAdaptedPVCuts = cms.bool( True ),
     min_eta = cms.double( -9999.0 ),
     dz_par1 = cms.vdouble( 9999.0, 0.0 ),
@@ -2013,7 +2013,7 @@ process.hltHIIter2TrackSelectionHighPurityForjets = cms.EDProducer( "AnalyticalT
     chi2n_no1Dmod_par = cms.double( 0.15 ),
     vertices = cms.InputTag( "hltHISelectedVertex" ),
     max_eta = cms.double( 9999.0 ),
-    d0_par2 = cms.vdouble( 3.0, 0.0 ),
+    d0_par2 = cms.vdouble( 999999.0, 0.0 ),
     d0_par1 = cms.vdouble( 9999.0, 0.0 ),
     res_par = cms.vdouble( 99999.0, 99999.0 ),
     minHitsToBypassChecks = cms.uint32( 20 )
@@ -2193,7 +2193,7 @@ process.hltHIIter3TrackSelectionHighPurityForjets = cms.EDProducer( "AnalyticalT
     chi2n_par = cms.double( 9999.0 ),
     useVtxError = cms.bool( True ),
     nSigmaZ = cms.double( 9999.0 ),
-    dz_par2 = cms.vdouble( 3.0, 0.0 ),
+    dz_par2 = cms.vdouble( 999999.0, 0.0 ),
     applyAdaptedPVCuts = cms.bool( True ),
     min_eta = cms.double( -9999.0 ),
     dz_par1 = cms.vdouble( 9999.0, 0.0 ),
@@ -2215,7 +2215,7 @@ process.hltHIIter3TrackSelectionHighPurityForjets = cms.EDProducer( "AnalyticalT
     chi2n_no1Dmod_par = cms.double( 0.15 ),
     vertices = cms.InputTag( "hltHISelectedVertex" ),
     max_eta = cms.double( 9999.0 ),
-    d0_par2 = cms.vdouble( 3.0, 0.0 ),
+    d0_par2 = cms.vdouble( 999999.0, 0.0 ),
     d0_par1 = cms.vdouble( 9999.0, 0.0 ),
     res_par = cms.vdouble( 99999.0, 99999.0 ),
     minHitsToBypassChecks = cms.uint32( 20 )
@@ -3022,7 +3022,9 @@ process.HLTDisplacedtktkVtxProducerForDmeson = cms.EDProducer( "HLTDisplacedtktk
     MaxEta = cms.double( 2.5 ),
     MaxInvMass = cms.double( 999999.0 ),
     MinPtPair = cms.double( 0.0 ),
-    MinInvMass = cms.double( 0.0 )
+    MinInvMass = cms.double( 0.0 ),
+    triggerTypeDaughters=cms.int32(91)
+
 )
 process.HLTDisplacedtktkFilterDmeson = cms.EDFilter( "HLTDisplacedtktkFilter",
     saveTags = cms.bool( True ),
@@ -3034,7 +3036,9 @@ process.HLTDisplacedtktkFilterDmeson = cms.EDFilter( "HLTDisplacedtktkFilter",
     FastAccept = cms.bool( True ),
     MinCosinePointingAngle = cms.double( -2.0 ),
     MaxNormalisedChi2 = cms.double( 999999.0 ),
-    MinLxySignificance = cms.double( 0.0 )
+    MinLxySignificance = cms.double( 0.0 ),
+    triggerTypeDaughters=cms.int32(91)
+
 )
 
 process.HLTDisplacedtktkVtxProducerForDmesonjets = cms.EDProducer( "HLTDisplacedtktkVtxProducer",
@@ -3045,7 +3049,9 @@ process.HLTDisplacedtktkVtxProducerForDmesonjets = cms.EDProducer( "HLTDisplaced
     MaxEta = cms.double( 2.5 ),
     MaxInvMass = cms.double( 999999.0 ),
     MinPtPair = cms.double( 0.0 ),
-    MinInvMass = cms.double( 0.0 )
+    MinInvMass = cms.double( 0.0 ),
+    triggerTypeDaughters=cms.int32(91)
+
 )
 process.HLTDisplacedtktkFilterDmesonjets = cms.EDFilter( "HLTDisplacedtktkFilter",
     saveTags = cms.bool( True ),
@@ -3057,7 +3063,9 @@ process.HLTDisplacedtktkFilterDmesonjets = cms.EDFilter( "HLTDisplacedtktkFilter
     FastAccept = cms.bool( True ),
     MinCosinePointingAngle = cms.double( -2.0 ),
     MaxNormalisedChi2 = cms.double( 999999.0 ),
-    MinLxySignificance = cms.double( 0.0 )
+    MinLxySignificance = cms.double( 0.0 ),
+    triggerTypeDaughters=cms.int32(91)
+
 )
 
 process.HLTL1UnpackerSequence = cms.Sequence( process.hltGtDigis + process.hltCaloStage1Digis + process.hltCaloStage1LegacyFormatDigis + process.hltL1GtObjectMap + process.hltL1extraParticles )
@@ -3254,4 +3262,13 @@ process.Timing=cms.Service("Timing",
     useJobReport = cms.untracked.bool(True)
     )
 
+
+from CondCore.DBCommon.CondDBSetup_cfi import *
+process.beamspot = cms.ESSource("PoolDBESSource",CondDBSetup,
+                                toGet = cms.VPSet(cms.PSet( record = cms.string('BeamSpotObjectsRcd'),
+                                                            tag= cms.string('RealisticHICollisions2011_STARTHI50_mc')
+                                                            )),
+                                connect =cms.string('frontier://FrontierProd/CMS_COND_31X_BEAMSPOT')
+                                )
+process.es_prefer_beamspot = cms.ESPrefer("PoolDBESSource","beamspot")
 
