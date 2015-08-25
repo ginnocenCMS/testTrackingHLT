@@ -6,7 +6,7 @@
 #file:/afs/cern.ch/work/i/istaslis/public/forGM/step2_DIGI_L1_DIGI2RAW_RAW2DIGI_L1Reco_PU_100_1_2fl.root
 #root://xrootd.cmsaf.mit.edu//store/user/mnguyen/Hydjet_Quenched_MinBias_5020GeV/HydjetMB_740pre8_MCHI2_74_V3_53XBS_DIGI-RAW/6da45e4e90741bc03dbd9aec5f36c050/step2_DIGI_L1_DIGI2RAW_HLT_RAW2DIGI_L1Reco_100_1_nRy.root
 
-hltGetConfiguration /users/ginnocen/HLTHeavyFlavourTracking/V45 --full --offline --mc --unprescale --process TEST --globaltag 75X_mcRun2_HeavyIon_v1 --l1-emulator 'stage1,gt' --l1Xml L1Menu_CollisionsHeavyIons2015.v3.xml --output none --max-events 100 --input file:/afs/cern.ch/work/m/mnguyen/public/bJetTestFile/step2_DIGI_L1_DIGI2RAW_RAW2DIGI_L1Reco_PU_9_1_GT1.root > hlt_MC_stage1_TRK2_HIcode.py 
+hltGetConfiguration /users/ginnocen/HLTHeavyFlavourTracking/V48 --full --offline --mc --unprescale --process TEST --globaltag 75X_mcRun2_HeavyIon_v1 --l1-emulator 'stage1,gt' --l1Xml L1Menu_CollisionsHeavyIons2015.v3.xml --output none --max-events 100 --input file:/afs/cern.ch/work/m/mnguyen/public/bJetTestFile/step2_DIGI_L1_DIGI2RAW_RAW2DIGI_L1Reco_PU_9_1_GT1.root > hlt_MC_stage1_TRK2_HIcode.py 
 
 sed -i '/process = cms.Process( "TEST" )/a process.load("setup_cff")' hlt_MC_stage1_TRK2_HIcode.py
 
@@ -57,4 +57,16 @@ process.Timing=cms.Service("Timing",
     useJobReport = cms.untracked.bool(True)
     )
 
+'>> hlt_MC_stage1_TRK2_HIcode.py
+
+
+echo '
+from CondCore.DBCommon.CondDBSetup_cfi import *
+process.beamspot = cms.ESSource("PoolDBESSource",CondDBSetup,
+                                toGet = cms.VPSet(cms.PSet( record = cms.string("BeamSpotObjectsRcd"),
+                                                            tag= cms.string("RealisticHICollisions2011_STARTHI50_mc")
+                                                            )),
+                                connect =cms.string("frontier://FrontierProd/CMS_COND_31X_BEAMSPOT")
+                                )
+process.es_prefer_beamspot = cms.ESPrefer("PoolDBESSource","beamspot")
 '>> hlt_MC_stage1_TRK2_HIcode.py
