@@ -83,3 +83,18 @@ process.beamspot = cms.ESSource("PoolDBESSource",CondDBSetup,
                                 )
 process.es_prefer_beamspot = cms.ESPrefer("PoolDBESSource","beamspot")
 '>> hlt_MC_stage1_TRK2_HIcode.py
+
+
+echo ' 
+process.load("Configuration/StandardSequences/FrontierConditions_GlobalTag_condDBv2_cff")
+from Configuration.AlCa.GlobalTag_condDBv2 import GlobalTag
+recordOverrides = { ("L1RCTParametersRcd", None) : ("L1RCTParametersRcd_L1TDevelCollisions_ExtendedScaleFactorsV4_HIDisabledFGHOE", None) }
+process.GlobalTag = GlobalTag(process.GlobalTag, "75X_mcRun2_HeavyIon_v1", recordOverrides)
+process.GlobalTag.snapshotTime = cms.string("9999-12-31 23:59:59.000")
+'>> hlt_MC_stage1_TRK2_HIcode.py
+
+
+
+
+
+
