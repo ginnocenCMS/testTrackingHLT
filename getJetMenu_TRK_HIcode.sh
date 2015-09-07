@@ -6,7 +6,7 @@
 #file:/afs/cern.ch/work/i/istaslis/public/forGM/step2_DIGI_L1_DIGI2RAW_RAW2DIGI_L1Reco_PU_100_1_2fl.root
 #root://xrootd.cmsaf.mit.edu//store/user/mnguyen/Hydjet_Quenched_MinBias_5020GeV/HydjetMB_740pre8_MCHI2_74_V3_53XBS_DIGI-RAW/6da45e4e90741bc03dbd9aec5f36c050/step2_DIGI_L1_DIGI2RAW_HLT_RAW2DIGI_L1Reco_100_1_nRy.root
 
-hltGetConfiguration /users/ginnocen/HLTHeavyFlavourTracking/V49 --full --offline --mc --unprescale --process TEST --globaltag 75X_mcRun2_HeavyIon_v1 --l1-emulator 'stage1,gt' --l1Xml L1Menu_CollisionsHeavyIons2015.v3.xml --output none --max-events 100 --input file:/afs/cern.ch/work/g/ginnocen/public/SamplesForDmesonTurnOn/ExampleFileDFlatPt/step2_DIGI_L1_DIGI2RAW_HLT_RAW2DIGI_L1Reco_PU_100_1_VHc.root > hlt_MC_stage1_TRK2_HIcode.py 
+hltGetConfiguration /users/ginnocen/HLTHeavyFlavourTracking/V49 --full --offline --mc --unprescale --process TEST --globaltag 75X_mcRun2_HeavyIon_v1 --l1-emulator 'stage1,gt' --l1Xml L1Menu_CollisionsHeavyIons2015.v3.xml --output none --max-events 100 --input file:/afs/cern.ch/work/g/ginnocen/public/SamplesForHFHLTStudies/ExampleFiles/ExampleFileDFlatPt/step2_DIGI_L1_DIGI2RAW_HLT_RAW2DIGI_L1Reco_PU_100_1_VHc.root > hlt_MC_stage1_TRK2_HIcode.py 
 
 sed -i '/process = cms.Process( "TEST" )/a process.load("setup_cff")' hlt_MC_stage1_TRK2_HIcode.py
 
@@ -23,8 +23,8 @@ echo 'process.TFileService = cms.Service("TFileService",
                                    fileName=cms.string("openHLT.root"))' >> hlt_MC_stage1_TRK2_HIcode.py
 
 
-#echo 'process.load("HeavyIonsAnalysis.JetAnalysis.HiGenAnalyzer_cfi")'>> hlt_MC_stage1_TRK2_HIcode.py   ###TO BE ADDED TO RUN HIGENANALYZER
-#echo 'process.load("GeneratorInterface.HiGenCommon.HeavyIon_cff")'>> hlt_MC_stage1_TRK2_HIcode.py       ###TO BE ADDED TO RUN HIGENANALYZER
+echo 'process.load("HeavyIonsAnalysis.JetAnalysis.HiGenAnalyzer_cfi")'>> hlt_MC_stage1_TRK2_HIcode.py   ###TO BE ADDED TO RUN HIGENANALYZER
+echo 'process.load("GeneratorInterface.HiGenCommon.HeavyIon_cff")'>> hlt_MC_stage1_TRK2_HIcode.py       ###TO BE ADDED TO RUN HIGENANALYZER
 
 echo '' >> hlt_MC_stage1_TRK2_HIcode.py
 
@@ -57,13 +57,13 @@ customiseSimL1EmulatorForPostLS1_HI(process)
 cmsRun hlt_MC_stage1_TRK2_HIcode.py >& triggerCheckMC_stage1_TRK2_HIcode.log
 
 
-#echo '                                                                              ###TO BE ADDED TO RUN HIGENANALYZER
-#process.HiGenParticleAna.genParticleSrc = cms.untracked.InputTag("genParticles")    ###TO BE ADDED TO RUN HIGENANALYZER
-#process.HiGenParticleAna.stableOnly = cms.untracked.bool(False)                     ###TO BE ADDED TO RUN HIGENANALYZER
-#process.ana_step = cms.Path(process.heavyIon*                                       ###TO BE ADDED TO RUN HIGENANALYZER
-#      process.HiGenParticleAna                                                      ###TO BE ADDED TO RUN HIGENANALYZER
-#)                                                                                   ###TO BE ADDED TO RUN HIGENANALYZER
-#'>> hlt_MC_stage1_TRK2_HIcode.py
+echo '                                                                             
+process.HiGenParticleAna.genParticleSrc = cms.untracked.InputTag("genParticles")    ###TO BE ADDED TO RUN HIGENANALYZER
+process.HiGenParticleAna.stableOnly = cms.untracked.bool(False)                     ###TO BE ADDED TO RUN HIGENANALYZER
+process.ana_step = cms.Path(process.heavyIon*                                       ###TO BE ADDED TO RUN HIGENANALYZER
+      process.HiGenParticleAna                                                      ###TO BE ADDED TO RUN HIGENANALYZER
+)                                                                                   ###TO BE ADDED TO RUN HIGENANALYZER
+'>> hlt_MC_stage1_TRK2_HIcode.py
 
 echo '
 process.Timing=cms.Service("Timing",
