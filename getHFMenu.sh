@@ -7,8 +7,8 @@ sed -i '/process = cms.Process( "TEST" )/a process.load("setup_cff")' hlt_MC_sta
 
 echo 'process.load('\''L1Trigger.L1TCalorimeter.caloConfigStage1HI_cfi'\'')' >> hlt_MC_stage1.py
 
-echo 'process.load("HeavyIonsAnalysis.JetAnalysis.HiGenAnalyzer_cfi")'>> hlt_MC_stage1_TRK2_HIcode.py  
-echo 'process.load("GeneratorInterface.HiGenCommon.HeavyIon_cff")'>> hlt_MC_stage1_TRK2_HIcode.py      
+echo 'process.load("HeavyIonsAnalysis.JetAnalysis.HiGenAnalyzer_cfi")'>> hlt_MC_stage1.py
+echo 'process.load("GeneratorInterface.HiGenCommon.HeavyIon_cff")'>> hlt_MC_stage1.py
 
 
 #echo 'from L1Trigger.L1TCommon.customsPostLS1 import customiseSimL1EmulatorForPostLS1_HI
@@ -51,13 +51,13 @@ process.GlobalTag.snapshotTime = cms.string("9999-12-31 23:59:59.000")' >> hlt_M
 
 ### adding gen particle info & timing
 
-#echo '                                                                             
-#process.HiGenParticleAna.genParticleSrc = cms.untracked.InputTag("genParticles")    
-#process.HiGenParticleAna.stableOnly = cms.untracked.bool(False)                     
-#process.ana_step = cms.Path(process.heavyIon*                                       
-#      process.HiGenParticleAna                                                      
-#)                                                                                   
-#'>> hlt_MC_stage1.py
+echo '                                                                             
+process.HiGenParticleAna.genParticleSrc = cms.untracked.InputTag("genParticles")    
+process.HiGenParticleAna.stableOnly = cms.untracked.bool(False)                     
+process.ana_step = cms.Path(process.heavyIon*                                       
+      process.HiGenParticleAna                                                      
+)                                                                                   
+'>> hlt_MC_stage1.py
 
 echo '
 process.Timing=cms.Service("Timing",
