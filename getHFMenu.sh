@@ -6,6 +6,7 @@ hltGetConfiguration /users/ginnocen/HLTHeavyFlavourTracking/V52 --full --offline
 sed -i '/process = cms.Process( "TEST" )/a process.load("setup_cff")' hlt_MC_stage1.py
 
 echo 'process.load('\''L1Trigger.L1TCalorimeter.caloConfigStage1HI_cfi'\'')' >> hlt_MC_stage1.py
+echo 'process.caloStage1Params.regionPUSType = cms.string("zeroWall")' >> hlt_MC_stage1.py
 
 echo 'process.load("HeavyIonsAnalysis.JetAnalysis.HiGenAnalyzer_cfi")'>> hlt_MC_stage1.py
 echo 'process.load("GeneratorInterface.HiGenCommon.HeavyIon_cff")'>> hlt_MC_stage1.py
@@ -41,7 +42,6 @@ echo 'process.hltbitanalysis.UseTFileService = cms.untracked.bool(True)' >> hlt_
 echo 'process.hltBitAnalysis = cms.EndPath(process.hltbitanalysis)' >> hlt_MC_stage1.py
 echo 'process.TFileService = cms.Service("TFileService",
                                    fileName=cms.string("openHLT_HF.root"))' >> hlt_MC_stage1.py
-
 
 echo 'process.load('\''Configuration/StandardSequences/FrontierConditions_GlobalTag_condDBv2_cff'\'')
 from Configuration.AlCa.GlobalTag_condDBv2 import GlobalTag
