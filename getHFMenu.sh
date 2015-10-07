@@ -42,6 +42,17 @@ echo 'process.hltbitanalysis.UseTFileService = cms.untracked.bool(True)' >> hlt_
 echo 'process.hltBitAnalysis = cms.EndPath(process.hltbitanalysis)' >> hlt_MC_stage1.py
 echo 'process.TFileService = cms.Service("TFileService",
                                    fileName=cms.string("openHLT_HF.root"))' >> hlt_MC_stage1.py
+                                   
+                                   
+echo 'from CondCore.DBCommon.CondDBSetup_cfi import *
+process.beamspot = cms.ESSource("PoolDBESSource",CondDBSetup,
+                                toGet = cms.VPSet(cms.PSet( record = cms.string('\''BeamSpotObjectsRcd'\''),
+                                                            tag= cms.string('\''RealisticHICollisions2011_STARTHI50_mc'\'')
+                                                            )),
+                                connect =cms.string('\''frontier://FrontierProd/CMS_COND_31X_BEAMSPOT'\'')
+                                )
+process.es_prefer_beamspot = cms.ESPrefer("PoolDBESSource","beamspot")' >> hlt_MC_stage1.py
+                                   
 
 echo 'process.load('\''Configuration/StandardSequences/FrontierConditions_GlobalTag_condDBv2_cff'\'')
 from Configuration.AlCa.GlobalTag_condDBv2 import GlobalTag
