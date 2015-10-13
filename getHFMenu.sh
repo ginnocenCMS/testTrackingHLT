@@ -22,17 +22,6 @@ echo 'process.load("GeneratorInterface.HiGenCommon.HeavyIon_cff")'>> hlt_MC_stag
 perl -pi -e 's/useHF = cms.untracked.bool/useHF = cms.bool/g' hlt_MC_stage1.py
 #perl -pi -e 's/L1_SingleMu3_BptxAND/L1_ZeroBias/g' hlt_MC_stage1.py
 
-echo '
-from CondCore.DBCommon.CondDBSetup_cfi import *
-process.beamspot = cms.ESSource("PoolDBESSource",CondDBSetup,
-                                toGet = cms.VPSet(cms.PSet( record = cms.string("BeamSpotObjectsRcd"),
-                                                            tag= cms.string("RealisticHICollisions2011_STARTHI50_mc")
-                                                            )),
-                                connect =cms.string("frontier://FrontierProd/CMS_COND_31X_BEAMSPOT")
-                                )
-process.es_prefer_beamspot = cms.ESPrefer("PoolDBESSource","beamspot")
-'>> hlt_MC_stage1.py
-
 
 echo 'process.load("HLTrigger.HLTanalyzers.HLTBitAnalyser_cfi")' >> hlt_MC_stage1.py
 echo 'process.hltbitanalysis.HLTProcessName = cms.string("TEST")' >> hlt_MC_stage1.py
