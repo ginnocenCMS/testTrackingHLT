@@ -3,7 +3,7 @@
 
 hltGetConfiguration /users/ginnocen/ppHLTHeavyFlavourTracking/V8 --full --offline --mc --process TEST --globaltag 75X_mcRun2_HeavyIon_v6 --l1-emulator 'stage1,gt' --l1Xml L1Menu_CollisionsHeavyIons2015.v3_KKHecked.xml --output none --max-events 20 --input  root://xrootd.cmsaf.mit.edu//store/user/twang/Pyquen_DiJet_pt40_5020GeV_GEN_SIM_PU_20150813/Pyquen_DiJet_pt40_5020GeV_step2_20150813/00a3c06d28c9e39d8c4f520dd28e45dd/step2_DIGI_L1_DIGI2RAW_HLT_RAW2DIGI_L1Reco_PU_103_1_NAb.root > hlt_MC_stage1_PP.py
 
-sed -i '/process = cms.Process( "TEST" )/a process.load("setup_cff_PP")' hlt_MC_stage1_PP.py
+sed -i '/process = cms.Process( "TEST" )/a process.load("setup_cff")' hlt_MC_stage1_PP.py
 
 echo 'process.load('\''L1Trigger.L1TCalorimeter.caloConfigStage1HI_cfi'\'')' >> hlt_MC_stage1_PP.py
 echo 'process.caloStage1Params.regionPUSType = cms.string("zeroWall")' >> hlt_MC_stage1_PP.py
