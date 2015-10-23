@@ -1,7 +1,7 @@
 #!bin/bash
 #prev gt 75X_mcRun2_HeavyIon_v1
 
-hltGetConfiguration /users/ginnocen/ppHLTHeavyFlavourTracking/V8 --full --offline --mc --process TEST --globaltag 75X_mcRun2_HeavyIon_v6 --l1-emulator 'stage1,gt' --l1Xml L1Menu_CollisionsHeavyIons2015.v3_KKHecked.xml --output none --max-events 20 --input  root://xrootd.cmsaf.mit.edu//store/user/twang/Pyquen_DiJet_pt40_5020GeV_GEN_SIM_PU_20150813/Pyquen_DiJet_pt40_5020GeV_step2_20150813/00a3c06d28c9e39d8c4f520dd28e45dd/step2_DIGI_L1_DIGI2RAW_HLT_RAW2DIGI_L1Reco_PU_103_1_NAb.root > hlt_MC_stage1.py
+hltGetConfiguration /users/ginnocen/ppHLTHeavyFlavourTracking/V8 --full --offline --mc --unprescale --process TEST --globaltag 75X_mcRun2_asymptotic_v6 --l1-emulator 'stage1,gt' --l1Xml L1Menu_Collisions2015_lowPU_v4_L1T_Scales_20141121.xml --output none --max-events 20 --input  file:/home/sun229/store/Pythia_D0pt15p0_Pthat15_TuneZ2_5020GeV_GENSIM_75x_1015/Pythia_D0pt15p0_Pthat15_TuneZ2_5020GeV_reco_75x_1015/94c15f02ac462193a29b82695967e4a9/step3_RAW2DIGI_L1Reco_RECO_536_1_K9S.root > hlt_MC_stage1.py
 
 sed -i '/process = cms.Process( "TEST" )/a process.load("setup_cff")' hlt_MC_stage1.py
 
@@ -32,22 +32,23 @@ echo 'process.hltBitAnalysis = cms.EndPath(process.hltbitanalysis)' >> hlt_MC_st
 echo 'process.TFileService = cms.Service("TFileService",
                                    fileName=cms.string("openHLT_HF.root"))' >> hlt_MC_stage1.py
                                    
-                                   
-echo 'from CondCore.DBCommon.CondDBSetup_cfi import *
-process.beamspot = cms.ESSource("PoolDBESSource",CondDBSetup,
-                                toGet = cms.VPSet(cms.PSet( record = cms.string('\''BeamSpotObjectsRcd'\''),
-                                                            tag= cms.string('\''RealisticHICollisions2011_STARTHI50_mc'\'')
-                                                            )),
-                                connect =cms.string('\''frontier://FrontierProd/CMS_COND_31X_BEAMSPOT'\'')
-                                )
-process.es_prefer_beamspot = cms.ESPrefer("PoolDBESSource","beamspot")' >> hlt_MC_stage1.py
-                                   
 
+echo 'process.caloStage1Params.jetSeedThreshold = cms.double(3.0)' >> hlt_MC_stage1.py 
+echo 'process.load("L1Trigger.L1TCalorimeter.caloConfigStage1PP_cfi")' >> hlt_MC_stage1.py
+echo 'process.caloConfig' >> hlt_MC_stage1.py
+                                   
 echo 'process.load('\''Configuration/StandardSequences/FrontierConditions_GlobalTag_condDBv2_cff'\'')
 from Configuration.AlCa.GlobalTag_condDBv2 import GlobalTag
-recordOverrides = { ('\''L1RCTParametersRcd'\'', None) : ('\''L1RCTParametersRcd_L1TDevelCollisions_ExtendedScaleFactorsV4_HIDisabledFGHOE'\'', None) }
-process.GlobalTag = GlobalTag(process.GlobalTag, '\''75X_mcRun2_HeavyIon_v6'\'', recordOverrides)
-process.GlobalTag.snapshotTime = cms.string("9999-12-31 23:59:59.000")' >> hlt_MC_stage1.py
+recordOverrides = { ('\''L1RCTParametersRcd'\'', None) : ('\''L1RCTParametersRcd_L1TDevelCollisions_ExtendedScaleFactors_NewTau_FullEGTransparency_v1'\'', None) }      
+process.GlobalTag = GlobalTag(process.GlobalTag, '\''75X_mcRun2_asymptotic_v1'\'', recordOverrides)
+process.GlobalTag.snapshotTime = cms.string("9999-12-31 23:59:59.000")' >>  hlt_MC_stage1.py
+
+echo 'from CondCore.DBCommon.CondDBSetup_cfi import *
+process.beamspot = cms.ESSource("PoolDBESSource",CondDBSetup,
+                                toGet = cms.VPSet(cms.PSet( record = cms.string('BeamSpotObjectsRcd'),
+                                                            tag= cms.string('NominalHICollisions2015_MCHI2_74_V5_mc'))),
+                                connect =cms.string('frontier://FrontierProd/CMS_COND_31X_BEAMSPOT'))
+process.es_prefer_beamspot = cms.ESPrefer("PoolDBESSource","beamspot")' >>  hlt_MC_stage1.py
 
 ### adding gen particle info & timing
 
