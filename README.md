@@ -19,3 +19,22 @@ How to run the code:
 * make sure that the Global Tag, the HLT menu and the test file are the ones you want
 * source getJetMenu_TRK_HIcode.sh. This will produce a python script
 * cmsRun hlt_MC_stage1_TRK2_HIcode.py
+
+
+# Offline check
+This is the offline check macro by Jing.
+
+Macro
+https://github.com/boundino/Dntuple/tree/master/TestMacros/trigPre
+
+Instruction
+- `git clone https://github.com/boundino/Dntuple.git`
+- `cd TestMacros/trigPre`
+- Instruction of the macro
+ + Preselection in line 12
+ + Change pthat in line 13
+ + Input file in line 14
+  - cgate: /mnt/hadoop/cms/store/user/jwang/Dmeson/5p02TeV/*
+  - lxplus: /afs/cern.ch/work/w/wangj/public/Dmeson/*
+ + Plot efficiency vs. variables by calling function plotTurnOn()
+- `root triggerturnon.C+`
