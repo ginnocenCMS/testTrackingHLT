@@ -34,7 +34,7 @@ Instruction
  + Preselection in line 12
  + Change pthat in line 13
  + Input file in line 14
-  - cgate: /mnt/hadoop/cms/store/user/jwang/Dmeson/5p02TeV/*
-  - lxplus: /afs/cern.ch/work/w/wangj/public/Dmeson/*
+  * cgate: /mnt/hadoop/cms/store/user/jwang/Dmeson/5p02TeV/*
+  * lxplus: /afs/cern.ch/work/w/wangj/public/Dmeson/*
  + Plot efficiency vs. variables by calling function plotTurnOn()
 - `root triggerturnon.C+`
