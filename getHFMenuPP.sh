@@ -1,7 +1,7 @@
 #!bin/bash
 #prev gt 75X_mcRun2_HeavyIon_v1
 
-hltGetConfiguration /users/ginnocen/ppHLTHeavyFlavourTracking/V8 --full --offline --mc --unprescale --process TEST --globaltag 75X_mcRun2_asymptotic_v6 --l1-emulator 'stage1,gt' --l1Xml L1Menu_Collisions2015_lowPU_v4_L1T_Scales_20141121.xml --output none --max-events 20 --input  file:/home/sun229/store/Pythia_D0pt15p0_Pthat15_TuneZ2_5020GeV_GENSIM_75x_1015/Pythia_D0pt15p0_Pthat15_TuneZ2_5020GeV_reco_75x_1015/94c15f02ac462193a29b82695967e4a9/step3_RAW2DIGI_L1Reco_RECO_536_1_K9S.root > hlt_MC_stage1.py
+hltGetConfiguration /users/ginnocen/ppHLTHeavyFlavourTracking/V8 --full --offline --mc --unprescale --process TEST --globaltag 75X_mcRun2_asymptotic_v6 --l1-emulator 'stage1,gt' --l1Xml L1Menu_Collisions2015_lowPU_v4_L1T_Scales_20141121.xml --output none --max-events 20 --input root://xrootd.unl.edu//store/user/jisun/Pythia_D0pt15p0_Pthat15_TuneZ2_5020GeV_GENSIM_75x_1015/Pythia_D0pt15p0_Pthat15_TuneZ2_5020GeV_reco_75x_1015/94c15f02ac462193a29b82695967e4a9/step3_RAW2DIGI_L1Reco_RECO_100_1_wdG.root 
 
 sed -i '/process = cms.Process( "TEST" )/a process.load("setup_cff")' hlt_MC_stage1.py
 
