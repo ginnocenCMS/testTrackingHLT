@@ -2575,7 +2575,7 @@ process.hltbitanalysis.l1GtReadoutRecord = cms.InputTag("simGtDigis","","TEST")
 process.hltbitanalysis.UseTFileService = cms.untracked.bool(True)
 process.hltBitAnalysis = cms.EndPath(process.hltbitanalysis)
 process.TFileService = cms.Service("TFileService",
-                                   fileName=cms.string("openHLT_HF.root"))
+                                   fileName=cms.string("openHLT_HF_vanilla.root"))
 from CondCore.DBCommon.CondDBSetup_cfi import *
 process.beamspot = cms.ESSource("PoolDBESSource",CondDBSetup,
                                 toGet = cms.VPSet(cms.PSet( record = cms.string('BeamSpotObjectsRcd'),

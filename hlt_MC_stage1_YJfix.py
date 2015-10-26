@@ -1330,16 +1330,35 @@ process.hltHIIter1TrackSelection = cms.EDProducer( "HIMultiTrackSelector",
     useAnyMVA = cms.bool( True ),
     useVertices = cms.bool( True )
 )
-process.hltHIIter2ClustersRefRemoval = cms.EDProducer( "TrackClusterRemover",
-    minNumberOfLayersWithMeasBeforeFiltering = cms.int32( 0 ),
-    maxChi2 = cms.double( 9.0 ),
-    trajectories = cms.InputTag( "hltHIDetachedGlobalPrimTracks" ),
+#process.hltHIIter2ClustersRefRemoval = cms.EDProducer( "TrackClusterRemover",
+#    minNumberOfLayersWithMeasBeforeFiltering = cms.int32( 0 ),
+#    maxChi2 = cms.double( 9.0 ),
+#    trajectories = cms.InputTag( "hltHIDetachedGlobalPrimTracks" ),
+#    oldClusterRemovalInfo = cms.InputTag( "hltHIIter1ClustersRefRemoval" ),
+#    stripClusters = cms.InputTag( "hltHITrackingSiStripRawToClustersFacility" ),
+#    overrideTrkQuals = cms.InputTag( 'hltHIIter1TrackSelection','hiDetachedTripletStep' ),
+#    pixelClusters = cms.InputTag( "hltHISiPixelClusters" ),
+#    TrackQuality = cms.string( "highPurity" )
+#)
+
+process.hltHIIter2ClustersRefRemoval = cms.EDProducer("HITrackClusterRemover",
+    Common = cms.PSet(
+        maxChi2 = cms.double(9.0)
+    ),
+    Strip = cms.PSet(
+        maxChi2 = cms.double(9.0),
+        maxSize = cms.uint32(2)
+    ),
+    TrackQuality = cms.string('highPurity'),
+    clusterLessSolution = cms.bool(True),
+    minNumberOfLayersWithMeasBeforeFiltering = cms.int32(0),
     oldClusterRemovalInfo = cms.InputTag( "hltHIIter1ClustersRefRemoval" ),
-    stripClusters = cms.InputTag( "hltHITrackingSiStripRawToClustersFacility" ),
     overrideTrkQuals = cms.InputTag( 'hltHIIter1TrackSelection','hiDetachedTripletStep' ),
     pixelClusters = cms.InputTag( "hltHISiPixelClusters" ),
-    TrackQuality = cms.string( "highPurity" )
+    stripClusters = cms.InputTag( "hltHITrackingSiStripRawToClustersFacility" ),
+    trajectories = cms.InputTag( "hltHIDetachedGlobalPrimTracks" ),
 )
+
 process.hltHIIter2MaskedMeasurementTrackerEvent = cms.EDProducer( "MaskedMeasurementTrackerEventProducer",
     clustersToSkip = cms.InputTag( "hltHIIter2ClustersRefRemoval" ),
     OnDemand = cms.bool( False ),
@@ -2593,7 +2612,7 @@ process.hltbitanalysis.l1GtReadoutRecord = cms.InputTag("simGtDigis","","TEST")
 process.hltbitanalysis.UseTFileService = cms.untracked.bool(True)
 process.hltBitAnalysis = cms.EndPath(process.hltbitanalysis)
 process.TFileService = cms.Service("TFileService",
-                                   fileName=cms.string("openHLT_HF.root"))
+                                   fileName=cms.string("openHLT_HF_YJfix.root"))
 from CondCore.DBCommon.CondDBSetup_cfi import *
 process.beamspot = cms.ESSource("PoolDBESSource",CondDBSetup,
                                 toGet = cms.VPSet(cms.PSet( record = cms.string('BeamSpotObjectsRcd'),
