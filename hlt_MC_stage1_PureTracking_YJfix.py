@@ -2612,7 +2612,7 @@ process.hltbitanalysis.l1GtReadoutRecord = cms.InputTag("simGtDigis","","TEST")
 process.hltbitanalysis.UseTFileService = cms.untracked.bool(True)
 process.hltBitAnalysis = cms.EndPath(process.hltbitanalysis)
 process.TFileService = cms.Service("TFileService",
-                                   fileName=cms.string("openHLT_HF_YJfix_1event.root"))
+                                   fileName=cms.string("openHLT_PureTracking_YJfix.root"))
 from CondCore.DBCommon.CondDBSetup_cfi import *
 process.beamspot = cms.ESSource("PoolDBESSource",CondDBSetup,
                                 toGet = cms.VPSet(cms.PSet( record = cms.string('BeamSpotObjectsRcd'),
@@ -2638,7 +2638,7 @@ process.Timing=cms.Service("Timing",
     useJobReport = cms.untracked.bool(True)
     )
 process.hltOutputFULL = cms.OutputModule( "PoolOutputModule",
-    fileName = cms.untracked.string( "outputFULL_YJfix.root" ),
+    fileName = cms.untracked.string( "outputFULL_PureTracking_YJfix.root" ),
     fastCloning = cms.untracked.bool( False ),
     dataset = cms.untracked.PSet(
         dataTier = cms.untracked.string( 'RECO' ),
