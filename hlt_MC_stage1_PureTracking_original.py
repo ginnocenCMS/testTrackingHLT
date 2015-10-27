@@ -2557,7 +2557,7 @@ _customInfo['globalTags'][False] = "auto:run2_mc_GRun"
 _customInfo['inputFiles']={}
 _customInfo['inputFiles'][True]  = "file:RelVal_Raw_GRun_DATA.root"
 _customInfo['inputFiles'][False] = "file:RelVal_Raw_GRun_MC.root"
-_customInfo['maxEvents' ]=  100
+_customInfo['maxEvents' ]=  1
 _customInfo['globalTag' ]= "75X_mcRun2_HeavyIon_v6"
 _customInfo['inputFile' ]=  ['file:/afs/cern.ch/user/t/twang/public/HLTSamples/D0pt35/step3_RAW2DIGI_L1Reco_RECO_100_1_wFV.root']
 _customInfo['realData'  ]=  False
@@ -2575,7 +2575,7 @@ process.hltbitanalysis.l1GtReadoutRecord = cms.InputTag("simGtDigis","","TEST")
 process.hltbitanalysis.UseTFileService = cms.untracked.bool(True)
 process.hltBitAnalysis = cms.EndPath(process.hltbitanalysis)
 process.TFileService = cms.Service("TFileService",
-                                   fileName=cms.string("openHLT_HF_vanilla.root"))
+                                   fileName=cms.string("openHLT_HF_vanilla_1event.root"))
 from CondCore.DBCommon.CondDBSetup_cfi import *
 process.beamspot = cms.ESSource("PoolDBESSource",CondDBSetup,
                                 toGet = cms.VPSet(cms.PSet( record = cms.string('BeamSpotObjectsRcd'),
