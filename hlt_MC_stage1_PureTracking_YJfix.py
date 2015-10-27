@@ -1068,11 +1068,7 @@ process.hltHIIter1ClustersRefRemoval = cms.EDProducer("HITrackClusterRemover",
         maxChi2 = cms.double(9.0)
      )
 )
-process.hltHIIter1MaskedMeasurementTrackerEvent = cms.EDProducer( "MaskedMeasurementTrackerEventProducer",
-    clustersToSkip = cms.InputTag( "hltHIIter1ClustersRefRemoval" ),
-    OnDemand = cms.bool( False ),
-    src = cms.InputTag( "hltHISiStripClusters" )
-)
+
 process.hltHIDetachedPixelLayerTriplets = cms.EDProducer( "SeedingLayersEDProducer",
     layerList = cms.vstring( 'BPix1+BPix2+BPix3',
       'BPix1+BPix2+FPix1_pos',
@@ -1188,7 +1184,8 @@ process.hltHIDetachedTrackCandidates = cms.EDProducer( "CkfTrackCandidateMaker",
       numberMeasurementsForFit = cms.int32( 4 )
     ),
     TrajectoryCleaner = cms.string( "hltESPTrajectoryCleanerBySharedHits" ),
-    MeasurementTrackerEvent = cms.InputTag( "hltHIIter1MaskedMeasurementTrackerEvent" ),
+    MeasurementTrackerEvent = cms.InputTag( "hltHISiStripClusters" ),
+    clustersToSkip = cms.InputTag("hltHIIter1ClustersRefRemoval"),
     cleanTrajectoryAfterInOut = cms.bool( True ),
     useHitsSplitting = cms.bool( True ),
     RedundantSeedCleaner = cms.string( "CachingSeedCleanerBySharedInput" ),
@@ -1203,7 +1200,7 @@ process.hltHIDetachedGlobalPrimTracks = cms.EDProducer( "TrackProducer",
     SimpleMagneticField = cms.string( "ParabolicMf" ),
     clusterRemovalInfo = cms.InputTag( "" ),
     beamSpot = cms.InputTag( "hltOnlineBeamSpot" ),
-    MeasurementTrackerEvent = cms.InputTag( "hltHIIter1MaskedMeasurementTrackerEvent" ),
+    MeasurementTrackerEvent = cms.InputTag( "hltHISiStripClusters" ),
     Fitter = cms.string( "hltESPFlexibleKFFittingSmoother" ),
     useHitsSplitting = cms.bool( False ),
     MeasurementTracker = cms.string( "" ),
@@ -1359,11 +1356,6 @@ process.hltHIIter2ClustersRefRemoval = cms.EDProducer("HITrackClusterRemover",
     trajectories = cms.InputTag( "hltHIDetachedGlobalPrimTracks" ),
 )
 
-process.hltHIIter2MaskedMeasurementTrackerEvent = cms.EDProducer( "MaskedMeasurementTrackerEventProducer",
-    clustersToSkip = cms.InputTag( "hltHIIter2ClustersRefRemoval" ),
-    OnDemand = cms.bool( False ),
-    src = cms.InputTag( "hltHISiStripClusters" )
-)
 process.hltHIPixelLayerPairs = cms.EDProducer( "SeedingLayersEDProducer",
     layerList = cms.vstring( 'BPix1+BPix2',
       'BPix1+BPix3',
@@ -1449,10 +1441,11 @@ process.hltHIPixelPairTrackCandidates = cms.EDProducer( "CkfTrackCandidateMaker"
     TransientInitialStateEstimatorParameters = cms.PSet( 
       propagatorAlongTISE = cms.string( "PropagatorWithMaterialForHI" ),
       propagatorOppositeTISE = cms.string( "PropagatorWithMaterialOppositeForHI" ),
+      clustersToSkip = cms.InputTag("hltHIIter2ClustersRefRemoval"),
       numberMeasurementsForFit = cms.int32( 4 )
     ),
     TrajectoryCleaner = cms.string( "hltESPTrajectoryCleanerBySharedHits" ),
-    MeasurementTrackerEvent = cms.InputTag( "hltHIIter2MaskedMeasurementTrackerEvent" ),
+    MeasurementTrackerEvent = cms.InputTag( "hltHISiStripClusters" ),
     cleanTrajectoryAfterInOut = cms.bool( True ),
     useHitsSplitting = cms.bool( True ),
     RedundantSeedCleaner = cms.string( "CachingSeedCleanerBySharedInput" ),
@@ -1467,7 +1460,7 @@ process.hltHIPixelPairGlobalPrimTracks = cms.EDProducer( "TrackProducer",
     SimpleMagneticField = cms.string( "ParabolicMf" ),
     clusterRemovalInfo = cms.InputTag( "" ),
     beamSpot = cms.InputTag( "hltOnlineBeamSpot" ),
-    MeasurementTrackerEvent = cms.InputTag( "hltHIIter2MaskedMeasurementTrackerEvent" ),
+    MeasurementTrackerEvent = cms.InputTag( "hltHISiStripClusters" ),
     Fitter = cms.string( "hltESPFlexibleKFFittingSmoother" ),
     useHitsSplitting = cms.bool( True ),
     MeasurementTracker = cms.string( "" ),
@@ -2460,8 +2453,8 @@ process.HLTDoHILocalPixelSequence = cms.Sequence( process.hltHISiPixelDigis + pr
 process.HLTHIRecopixelvetexingSequence = cms.Sequence( process.hltHIPixelClusterVertices + process.hltHIPixelLayerTriplets + process.hltHIPixel3ProtoTracks + process.hltHIPixelMedianVertex + process.hltHISelectedProtoTracks + process.hltHIPixelAdaptiveVertex + process.hltHIBestAdaptiveVertex + process.hltHISelectedVertex )
 process.HLTDoHITrackingLocalStripSequence = cms.Sequence( process.hltSiStripExcludedFEDListProducer + process.hltHITrackingSiStripRawToClustersFacility + process.hltHISiStripClusters )
 process.HLTHIIterativeTrackingIteration0 = cms.Sequence( process.hltHIPixel3PrimTracks + process.hltHIPixelTrackSeeds + process.hltHIPrimTrackCandidates + process.hltHIGlobalPrimTracks + process.hltHIIter0TrackSelection )
-process.HLTHIIterativeTrackingIteration1 = cms.Sequence( process.hltHIIter1ClustersRefRemoval + process.hltHIIter1MaskedMeasurementTrackerEvent + process.hltHIDetachedPixelLayerTriplets + process.hltHIDetachedPixelTracks + process.hltHIDetachedPixelTrackSeeds + process.hltHIDetachedTrackCandidates + process.hltHIDetachedGlobalPrimTracks + process.hltHIIter1TrackSelection )
-process.HLTHIIterativeTrackingIteration2 = cms.Sequence( process.hltHIIter2ClustersRefRemoval + process.hltHIIter2MaskedMeasurementTrackerEvent + process.hltHIPixelLayerPairs + process.hltHIPixelPairSeeds + process.hltHIPixelPairTrackCandidates + process.hltHIPixelPairGlobalPrimTracks + process.hltHIIter2TrackSelection )
+process.HLTHIIterativeTrackingIteration1 = cms.Sequence( process.hltHIIter1ClustersRefRemoval  + process.hltHIDetachedPixelLayerTriplets + process.hltHIDetachedPixelTracks + process.hltHIDetachedPixelTrackSeeds + process.hltHIDetachedTrackCandidates + process.hltHIDetachedGlobalPrimTracks + process.hltHIIter1TrackSelection )
+process.HLTHIIterativeTrackingIteration2 = cms.Sequence( process.hltHIIter2ClustersRefRemoval + process.hltHIPixelLayerPairs + process.hltHIPixelPairSeeds + process.hltHIPixelPairTrackCandidates + process.hltHIPixelPairGlobalPrimTracks + process.hltHIIter2TrackSelection )
 process.HLTEndSequence = cms.Sequence( process.hltBoolEnd )
 process.HLTHIIterativeTrackingIteration0ForGlobalPt8 = cms.Sequence( process.hltHIPixel3PrimTracksForGlobalPt8 + process.hltHIPixelTrackSeedsForGlobalPt8 + process.hltHIPrimTrackCandidatesForGlobalPt8 + process.hltHIGlobalPrimTracksForGlobalPt8 + process.hltHIIter0TrackSelectionForGlobalPt8 )
 process.HLTHIIterativeTrackingIteration1ForGlobalPt8 = cms.Sequence( process.hltHIIter1ClustersRefRemovalForGlobalPt8 + process.hltHIIter1MaskedMeasurementTrackerEventForGlobalPt8 + process.hltHIDetachedPixelLayerTripletsForGlobalPt8 + process.hltHIDetachedPixelTracksForGlobalPt8 + process.hltHIDetachedPixelTrackSeedsForGlobalPt8 + process.hltHIDetachedTrackCandidatesForGlobalPt8 + process.hltHIDetachedGlobalPrimTracksForGlobalPt8 + process.hltHIIter1TrackSelectionForGlobalPt8 )
