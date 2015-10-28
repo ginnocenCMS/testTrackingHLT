@@ -1,7 +1,7 @@
 #!bin/bash
 #prev gt 75X_mcRun2_HeavyIon_v1
 
-hltGetConfiguration /users/ginnocen/HLTHeavyFlavour_MVA/V31 --full --offline --mc --process TEST --globaltag 75X_mcRun2_HeavyIon_v6 --l1-emulator 'stage1,gt' --l1Xml L1Menu_CollisionsHeavyIons2015.v3_KKHecked.xml --output none --max-events 20 --input  file:/afs/cern.ch/user/t/twang/public/HLTSamples/D0pt35/step3_RAW2DIGI_L1Reco_RECO_100_1_wFV.root > hlt_MC_stage1.py
+hltGetConfiguration /users/ginnocen/HLTHeavyFlavour_MVA/V41 --full --offline --mc --process TEST --globaltag 75X_mcRun2_HeavyIon_v6 --l1-emulator 'stage1,gt' --l1Xml L1Menu_CollisionsHeavyIons2015.v3_KKHecked.xml --output none --max-events 20 --input  file:/afs/cern.ch/user/t/twang/public/HLTSamples/D0pt35/step3_RAW2DIGI_L1Reco_RECO_100_1_wFV.root > hlt_MC_stage1.py
 
 sed -i '/process = cms.Process( "TEST" )/a process.load("setup_cff")' hlt_MC_stage1.py
 
