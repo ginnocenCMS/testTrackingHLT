@@ -13,8 +13,8 @@ config.Data.publication = False
 config.Data.unitsPerJob = 100
 config.Data.inputDBS = 'phys03'
 config.Data.splitting = 'EventAwareLumiBased'
-config.Data.publishDataName = '/store/user/ginnocen/HeavyFlavourHLT_MVA_41'
+config.Data.outLFNDirBase = '/store/user/ginnocen/HeavyFlavourHLT_MVA_41'
 config.section_('User')
 config.section_('Site')
-config.Site.whitelist = ['T2_US_MIT']
+config.Site.whitelist = ['T2_FR_GRIF_LLR']
 config.Site.storageSite = 'T2_US_MIT'
