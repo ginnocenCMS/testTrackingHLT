@@ -5,6 +5,22 @@ import FWCore.ParameterSet.Config as cms
 process = cms.Process( "TEST" )
 process.load("setup_cff")
 
+#timing
+process.load("PerfAna/HiTimeAnalyzer/CfiFile_cfi")
+process.timing.srcHFhits=cms.string("hltHfrecoMethod0") #hltHfreco
+process.timing.spyOn=cms.VPSet(
+          cms.PSet(name=cms.string('iter0'),
+                   modules=cms.string("hltHIPixel3PrimTracksForjets+hltHIPixelTrackSeedsForjets+hltHIPrimTrackCandidatesForjets+hltHIGlobalPrimTracksForjets+hltHIIter0TrackSelectionForjets"),
+                   ),
+          cms.PSet(name=cms.string('iter1'),
+                   modules=cms.string("hltHIIter1ClustersRefRemovalForjets+hltHIIter1MaskedMeasurementTrackerEventForjets+hltHIDetachedPixelLayerTripletsForjets+hltHIDetachedPixelTracksForjets+hltHIDetachedPixelTrackSeedsForjets+hltHIDetachedTrackCandidatesForjets+hltHIDetachedGlobalPrimTracksForjets+hltHIIter1TrackSelectionForjets"),
+                   ),
+          cms.PSet(name=cms.string('iter2'),
+                   modules=cms.string("hltHIIter2ClustersRefRemovalForjets+hltHIIter2MaskedMeasurementTrackerEventForjets+hltHIPixelLayerPairsForjets+hltHIPixelPairSeedsForjets+hltHIPixelPairTrackCandidatesForjets+hltHIPixelPairGlobalPrimTracksForjets+hltHIIter2TrackSelectionForjets")
+                   )
+          )
+
+
 process.HLTConfigVersion = cms.PSet(
   tableName = cms.string('/users/ginnocen/HLTHeavyFlavour_MVA_ZS/V8')
 )
@@ -34,16 +50,20 @@ process.HLTPSetDetachedCkfTrajectoryBuilderForHI = cms.PSet(
   bestHitOnly = cms.bool( True )
 )
 process.HLTPSetDetachedCkfTrajectoryFilterForHI = cms.PSet( 
-  ComponentType = cms.string( "CkfBaseTrajectoryFilter" ),
-  minimumNumberOfHits = cms.int32( 6 ),
-  chargeSignificance = cms.double( -1.0 ),
-  minPt = cms.double( 0.3 ),
-  nSigmaMinPt = cms.double( 5.0 ),
-  minHitsMinPt = cms.int32( 3 ),
-  maxLostHits = cms.int32( 1 ),
-  maxConsecLostHits = cms.int32( 1 ),
-  maxNumberOfHits = cms.int32( 100 ),
-  constantValueForLostHitsFractionFilter = cms.double( 0.701 )
+    ComponentType = cms.string('CkfBaseTrajectoryFilter'),
+    chargeSignificance = cms.double(-1.0),
+    constantValueForLostHitsFractionFilter = cms.double(2.0),
+    extraNumberOfHitsBeforeTheFirstLoop = cms.int32(4),
+    maxConsecLostHits = cms.int32(1),
+    maxLostHits = cms.int32(999),
+    maxLostHitsFraction = cms.double(0.1),
+    maxNumberOfHits = cms.int32(100),
+    minHitsMinPt = cms.int32(3),
+    minNumberOfHits = cms.int32(13),
+    minNumberOfHitsPerLoop = cms.int32(4),
+    minPt = cms.double(0.9),
+    minimumNumberOfHits = cms.int32(6),
+    nSigmaMinPt = cms.double(5.0)
 )
 process.HLTPSetLowPtCkfTrajectoryFilterForHI = cms.PSet( 
   ComponentType = cms.string( "CkfBaseTrajectoryFilter" ),
@@ -81,15 +101,20 @@ process.HLTPSetLowPtCkfTrajectoryBuilderForHI = cms.PSet(
   bestHitOnly = cms.bool( True )
 )
 process.HLTPSetPixelPairCkfTrajectoryFilterForHI = cms.PSet( 
-  minPt = cms.double( 1.0 ),
-  minHitsMinPt = cms.int32( 3 ),
-  ComponentType = cms.string( "CkfBaseTrajectoryFilter" ),
-  maxLostHits = cms.int32( 100 ),
-  maxConsecLostHits = cms.int32( 1 ),
-  minimumNumberOfHits = cms.int32( 6 ),
-  nSigmaMinPt = cms.double( 5.0 ),
-  chargeSignificance = cms.double( -1.0 ),
-  maxNumberOfHits = cms.int32( 100 )
+    ComponentType = cms.string('CkfBaseTrajectoryFilter'),
+    chargeSignificance = cms.double(-1.0),
+    constantValueForLostHitsFractionFilter = cms.double(2.0),
+    extraNumberOfHitsBeforeTheFirstLoop = cms.int32(4),
+    maxConsecLostHits = cms.int32(1),
+    maxLostHits = cms.int32(999),
+    maxLostHitsFraction = cms.double(0.1),
+    maxNumberOfHits = cms.int32(100),
+    minHitsMinPt = cms.int32(3),
+    minNumberOfHits = cms.int32(13),
+    minNumberOfHitsPerLoop = cms.int32(4),
+    minPt = cms.double(0.9),
+    minimumNumberOfHits = cms.int32(6),
+    nSigmaMinPt = cms.double(5.0)
 )
 process.HLTPSetPixelPairCkfTrajectoryBuilderForHI = cms.PSet( 
   MeasurementTrackerName = cms.string( "" ),
@@ -262,15 +287,20 @@ process.HLTPSetInitialCkfTrajectoryBuilderForHI = cms.PSet(
   lostHitPenalty = cms.double( 30.0 )
 )
 process.HLTPSetInitialCkfTrajectoryFilterForHI = cms.PSet( 
-  minimumNumberOfHits = cms.int32( 6 ),
-  minHitsMinPt = cms.int32( 3 ),
-  ComponentType = cms.string( "CkfBaseTrajectoryFilter" ),
-  maxLostHits = cms.int32( 1 ),
-  maxNumberOfHits = cms.int32( 100 ),
-  maxConsecLostHits = cms.int32( 1 ),
-  chargeSignificance = cms.double( -1.0 ),
-  nSigmaMinPt = cms.double( 5.0 ),
-  minPt = cms.double( 0.9 )
+    ComponentType = cms.string('CkfBaseTrajectoryFilter'),
+    chargeSignificance = cms.double(-1.0),
+    constantValueForLostHitsFractionFilter = cms.double(2.0),
+    extraNumberOfHitsBeforeTheFirstLoop = cms.int32(4),
+    maxConsecLostHits = cms.int32(1),
+    maxLostHits = cms.int32(999),
+    maxLostHitsFraction = cms.double(0.1),
+    maxNumberOfHits = cms.int32(100),
+    minHitsMinPt = cms.int32(3),
+    minNumberOfHits = cms.int32(13),
+    minNumberOfHitsPerLoop = cms.int32(4),
+    minPt = cms.double(0.9),
+    minimumNumberOfHits = cms.int32(6),
+    nSigmaMinPt = cms.double(5.0)
 )
 
 process.hltESPChi2ChargeMeasurementEstimator9ForHI = cms.ESProducer( "Chi2ChargeMeasurementEstimatorESProducer",
@@ -3165,7 +3195,7 @@ process.hltHIPixelPairSeedsForjets = cms.EDProducer( "SeedGeneratorFromRegionHit
       RegionPSet = cms.PSet( 
         precise = cms.bool( True ),
         originRadius = cms.double( 0.005 ),
-        ptMin = cms.double( 0.9 ),
+        ptMin = cms.double( 1.0 ),
         beamSpot = cms.InputTag( "hltOnlineBeamSpot" ),
         useFixedError = cms.bool( False ),
         sigmaZVertex = cms.double( 4.0 ),
@@ -3792,7 +3822,7 @@ process.HLT_PuAK4CalobJet80Eta2p1_v1 = cms.Path( process.HLTBeginSequence + proc
 process.HLT_HIIterativeTracking_v1 = cms.Path( process.HLTBeginSequence + process.hltL1sZeroBias + process.hltPreHIIterativeTracking + process.HLTHIPixelClusterSplitting + process.HLTDoHITrackingLocalStripSequenceZeroSuppression + process.HLTEndSequence )
 process.HLT_HIIterativeTrackingForGlobalPt8_v1 = cms.Path( process.HLTBeginSequence + process.hltL1sZeroBias + process.hltPreHIIterativeTrackingForGlobalPt8 + process.HLTHIPixelClusterSplitting + process.HLTDoHITrackingLocalStripSequenceZeroSuppression + process.HLTHIIterativeTrackingForGlobalPt8 + process.HLTEndSequence )
 process.HLT_HIIterativeTrackingForCalo60Jets_v1 = cms.Path( process.HLTBeginSequence + process.hltL1sL1SingleJet28BptxAND + process.hltPreHIIterativeTrackingForCalo60Jets + process.HLTPuAK4CaloJetsSequence + process.hltSinglePuAK4CaloJet60Eta2p1 + process.eta2CaloJetsEta2p1Forjets + process.reduceJetMultEta2p1Forjets + process.jets4bTaggerCaloJet60Eta2p1Forjets + process.HLTHIPixelClusterSplitting + process.HLTDoHITrackingLocalStripSequenceZeroSuppression + process.HLTHIIterativeTrackingForJets + process.HLTEndSequence )
-process.HLTriggerFinalPath = cms.Path( process.hltGtDigis + process.hltScalersRawToDigi + process.hltFEDSelector + process.hltTriggerSummaryAOD + process.hltTriggerSummaryRAW )
+process.HLTriggerFinalPath = cms.Path( process.timing + process.hltGtDigis + process.hltScalersRawToDigi + process.hltFEDSelector + process.hltTriggerSummaryAOD + process.hltTriggerSummaryRAW )
 
 
 process.HLTSchedule = cms.Schedule( *(process.HLTriggerFirstPath, process.HLT_DmesonTrackingGlobalPt8_Dpt20_v1, process.HLT_DmesonTrackingGlobalPt8_Dpt30_v1, process.HLT_DmesonTrackingGlobalPt8_Dpt40_v1, process.HLT_DmesonTrackingGlobalPt8_Dpt50_v1, process.HLT_DmesonTrackingGlobalPt8_Dpt60_v1, process.HLT_PuAK4CaloD0Jet60Eta2p1_v1, process.HLT_PuAK4CalobJet60Eta2p1_v1, process.HLT_PuAK4CaloD0Jet80Eta2p1_v1, process.HLT_PuAK4CalobJet80Eta2p1_v1, process.HLT_HIIterativeTracking_v1, process.HLT_HIIterativeTrackingForGlobalPt8_v1, process.HLT_HIIterativeTrackingForCalo60Jets_v1, process.HLTriggerFinalPath ))
@@ -3906,7 +3936,7 @@ process.dqmOutput = cms.OutputModule("DQMRootOutputModule",
 )
 
 process.DQMOutput = cms.EndPath( process.dqmOutput )
-
+'''
 # add specific customizations
 _customInfo = {}
 _customInfo['menuType'  ]= "GRun"
@@ -3922,10 +3952,17 @@ _customInfo['inputFile' ]=  ['file:/afs/cern.ch/user/t/twang/public/HLTSamples/D
 _customInfo['realData'  ]=  False
 from HLTrigger.Configuration.customizeHLTforALL import customizeHLTforAll
 process = customizeHLTforAll(process,_customInfo)
+'''
+from HLTrigger.Configuration.customizeHLTforCMSSW import customiseHLTforCMSSW
+process = customiseHLTforCMSSW(process)
+
+_fastSim = cms.untracked.bool(False)
+from HLTrigger.Configuration.customizeHLTforMC import customizeHLTforMC
+process = customizeHLTforMC(process,_fastSim)
 
 process.load('L1Trigger.L1TCalorimeter.caloConfigStage1HI_cfi')
 process.caloStage1Params.regionPUSType = cms.string("zeroWall")
-process.load("HeavyIonsAnalysis.JetAnalysis.HiGenAnalyzer_cfi")
+#process.load("HeavyIonsAnalysis.JetAnalysis.HiGenAnalyzer_cfi")
 process.load("GeneratorInterface.HiGenCommon.HeavyIon_cff")
 process.load("HLTrigger.HLTanalyzers.HLTBitAnalyser_cfi")
 process.hltbitanalysis.HLTProcessName = cms.string("TEST")
@@ -3949,14 +3986,31 @@ recordOverrides = { ('L1RCTParametersRcd', None) : ('L1RCTParametersRcd_L1TDevel
 process.GlobalTag = GlobalTag(process.GlobalTag, '75X_mcRun2_HeavyIon_v6', recordOverrides)
 process.GlobalTag.snapshotTime = cms.string("9999-12-31 23:59:59.000")
                                                                              
-process.HiGenParticleAna.genParticleSrc = cms.untracked.InputTag("genParticles")    
-process.HiGenParticleAna.stableOnly = cms.untracked.bool(False)                     
-process.ana_step = cms.Path(process.heavyIon*                                       
-      process.HiGenParticleAna                                                      
-)                                                                                   
+#process.HiGenParticleAna.genParticleSrc = cms.untracked.InputTag("genParticles")    
+#process.HiGenParticleAna.stableOnly = cms.untracked.bool(False)                     
+#process.ana_step = cms.Path(process.heavyIon*                                       
+#      process.HiGenParticleAna                                                      
+#)                                                                                   
 
 
 process.Timing=cms.Service("Timing",
     useJobReport = cms.untracked.bool(True)
     )
 
+process.load('Configuration.EventContent.EventContentHeavyIons_cff')
+process.dqmOutput = cms.OutputModule("PoolOutputModule",
+                                  splitLevel = cms.untracked.int32(0),
+                                  eventAutoFlushCompressedSize = cms.untracked.int32(5242880),
+                                  fileName = cms.untracked.string ("output_triggerResults.root"),
+                                  outputCommands =process.RAWSIMEventContent.outputCommands,
+                                  dataset = cms.untracked.PSet(
+        filterName = cms.untracked.string(''),
+        dataTier = cms.untracked.string('GEN-SIM-RAW')
+        )
+                                  )
+
+process.dqmOutput.outputCommands.extend(['drop *_g4SimHits_*_*', 'drop *_*_*_SIM', 'drop *_*_*_L1Reco', 'drop *_*_*_RECO'])
+
+process.source.fileNames = cms.untracked.vstring('file:../step2_DIGI_L1_DIGI2RAW_RAW2DIGI_L1Reco_PU_1_1_ZQR.root')
+process.source.eventsToProcess = cms.untracked.VEventRange('1:116:11')
+process.dqmOutput.outputCommands = cms.untracked.vstring(['keep *'])  
