@@ -5,22 +5,6 @@ import FWCore.ParameterSet.Config as cms
 process = cms.Process( "TEST" )
 process.load("setup_cff")
 
-#timing
-process.load("PerfAna/HiTimeAnalyzer/CfiFile_cfi")
-process.timing.srcHFhits=cms.string("hltHfrecoMethod0") #hltHfreco
-process.timing.spyOn=cms.VPSet(
-          cms.PSet(name=cms.string('iter0'),
-                   modules=cms.string("hltHIPixel3PrimTracksForjets+hltHIPixelTrackSeedsForjets+hltHIPrimTrackCandidatesForjets+hltHIGlobalPrimTracksForjets+hltHIIter0TrackSelectionForjets"),
-                   ),
-          cms.PSet(name=cms.string('iter1'),
-                   modules=cms.string("hltHIIter1ClustersRefRemovalForjets+hltHIIter1MaskedMeasurementTrackerEventForjets+hltHIDetachedPixelLayerTripletsForjets+hltHIDetachedPixelTracksForjets+hltHIDetachedPixelTrackSeedsForjets+hltHIDetachedTrackCandidatesForjets+hltHIDetachedGlobalPrimTracksForjets+hltHIIter1TrackSelectionForjets"),
-                   ),
-          cms.PSet(name=cms.string('iter2'),
-                   modules=cms.string("hltHIIter2ClustersRefRemovalForjets+hltHIIter2MaskedMeasurementTrackerEventForjets+hltHIPixelLayerPairsForjets+hltHIPixelPairSeedsForjets+hltHIPixelPairTrackCandidatesForjets+hltHIPixelPairGlobalPrimTracksForjets+hltHIIter2TrackSelectionForjets")
-                   )
-          )
-
-
 process.HLTConfigVersion = cms.PSet(
   tableName = cms.string('/users/ginnocen/HLTHeavyFlavour_MVA_ZS/V8')
 )
@@ -3936,7 +3920,7 @@ process.dqmOutput = cms.OutputModule("DQMRootOutputModule",
 )
 
 process.DQMOutput = cms.EndPath( process.dqmOutput )
-'''
+
 # add specific customizations
 _customInfo = {}
 _customInfo['menuType'  ]= "GRun"
@@ -3952,7 +3936,7 @@ _customInfo['inputFile' ]=  ['file:/afs/cern.ch/user/t/twang/public/HLTSamples/D
 _customInfo['realData'  ]=  False
 from HLTrigger.Configuration.customizeHLTforALL import customizeHLTforAll
 process = customizeHLTforAll(process,_customInfo)
-'''
+
 from HLTrigger.Configuration.customizeHLTforCMSSW import customiseHLTforCMSSW
 process = customiseHLTforCMSSW(process)
 
@@ -3962,7 +3946,7 @@ process = customizeHLTforMC(process,_fastSim)
 
 process.load('L1Trigger.L1TCalorimeter.caloConfigStage1HI_cfi')
 process.caloStage1Params.regionPUSType = cms.string("zeroWall")
-#process.load("HeavyIonsAnalysis.JetAnalysis.HiGenAnalyzer_cfi")
+process.load("HeavyIonsAnalysis.JetAnalysis.HiGenAnalyzer_cfi")
 process.load("GeneratorInterface.HiGenCommon.HeavyIon_cff")
 process.load("HLTrigger.HLTanalyzers.HLTBitAnalyser_cfi")
 process.hltbitanalysis.HLTProcessName = cms.string("TEST")
@@ -3986,31 +3970,13 @@ recordOverrides = { ('L1RCTParametersRcd', None) : ('L1RCTParametersRcd_L1TDevel
 process.GlobalTag = GlobalTag(process.GlobalTag, '75X_mcRun2_HeavyIon_v6', recordOverrides)
 process.GlobalTag.snapshotTime = cms.string("9999-12-31 23:59:59.000")
                                                                              
-#process.HiGenParticleAna.genParticleSrc = cms.untracked.InputTag("genParticles")    
-#process.HiGenParticleAna.stableOnly = cms.untracked.bool(False)                     
-#process.ana_step = cms.Path(process.heavyIon*                                       
-#      process.HiGenParticleAna                                                      
-#)                                                                                   
+process.HiGenParticleAna.genParticleSrc = cms.untracked.InputTag("genParticles")    
+process.HiGenParticleAna.stableOnly = cms.untracked.bool(False)                     
+process.ana_step = cms.Path(process.heavyIon*                                       
+      process.HiGenParticleAna                                                      
+)                                                                                   
 
 
 process.Timing=cms.Service("Timing",
     useJobReport = cms.untracked.bool(True)
     )
-
-process.load('Configuration.EventContent.EventContentHeavyIons_cff')
-process.dqmOutput = cms.OutputModule("PoolOutputModule",
-                                  splitLevel = cms.untracked.int32(0),
-                                  eventAutoFlushCompressedSize = cms.untracked.int32(5242880),
-                                  fileName = cms.untracked.string ("output_triggerResults.root"),
-                                  outputCommands =process.RAWSIMEventContent.outputCommands,
-                                  dataset = cms.untracked.PSet(
-        filterName = cms.untracked.string(''),
-        dataTier = cms.untracked.string('GEN-SIM-RAW')
-        )
-                                  )
-
-process.dqmOutput.outputCommands.extend(['drop *_g4SimHits_*_*', 'drop *_*_*_SIM', 'drop *_*_*_L1Reco', 'drop *_*_*_RECO'])
-
-process.source.fileNames = cms.untracked.vstring('file:../step2_DIGI_L1_DIGI2RAW_RAW2DIGI_L1Reco_PU_1_1_ZQR.root')
-process.source.eventsToProcess = cms.untracked.VEventRange('1:116:11')
-process.dqmOutput.outputCommands = cms.untracked.vstring(['keep *'])  
