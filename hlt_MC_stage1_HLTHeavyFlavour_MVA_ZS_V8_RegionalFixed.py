@@ -3806,7 +3806,7 @@ process.HLT_PuAK4CalobJet80Eta2p1_v1 = cms.Path( process.HLTBeginSequence + proc
 process.HLT_HIIterativeTracking_v1 = cms.Path( process.HLTBeginSequence + process.hltL1sZeroBias + process.hltPreHIIterativeTracking + process.HLTHIPixelClusterSplitting + process.HLTDoHITrackingLocalStripSequenceZeroSuppression + process.HLTEndSequence )
 process.HLT_HIIterativeTrackingForGlobalPt8_v1 = cms.Path( process.HLTBeginSequence + process.hltL1sZeroBias + process.hltPreHIIterativeTrackingForGlobalPt8 + process.HLTHIPixelClusterSplitting + process.HLTDoHITrackingLocalStripSequenceZeroSuppression + process.HLTHIIterativeTrackingForGlobalPt8 + process.HLTEndSequence )
 process.HLT_HIIterativeTrackingForCalo60Jets_v1 = cms.Path( process.HLTBeginSequence + process.hltL1sL1SingleJet28BptxAND + process.hltPreHIIterativeTrackingForCalo60Jets + process.HLTPuAK4CaloJetsSequence + process.hltSinglePuAK4CaloJet60Eta2p1 + process.eta2CaloJetsEta2p1Forjets + process.reduceJetMultEta2p1Forjets + process.jets4bTaggerCaloJet60Eta2p1Forjets + process.HLTHIPixelClusterSplitting + process.HLTDoHITrackingLocalStripSequenceZeroSuppression + process.HLTHIIterativeTrackingForJets + process.HLTEndSequence )
-process.HLTriggerFinalPath = cms.Path( process.timing + process.hltGtDigis + process.hltScalersRawToDigi + process.hltFEDSelector + process.hltTriggerSummaryAOD + process.hltTriggerSummaryRAW )
+process.HLTriggerFinalPath = cms.Path( process.hltGtDigis + process.hltScalersRawToDigi + process.hltFEDSelector + process.hltTriggerSummaryAOD + process.hltTriggerSummaryRAW )
 
 
 process.HLTSchedule = cms.Schedule( *(process.HLTriggerFirstPath, process.HLT_DmesonTrackingGlobalPt8_Dpt20_v1, process.HLT_DmesonTrackingGlobalPt8_Dpt30_v1, process.HLT_DmesonTrackingGlobalPt8_Dpt40_v1, process.HLT_DmesonTrackingGlobalPt8_Dpt50_v1, process.HLT_DmesonTrackingGlobalPt8_Dpt60_v1, process.HLT_PuAK4CaloD0Jet60Eta2p1_v1, process.HLT_PuAK4CalobJet60Eta2p1_v1, process.HLT_PuAK4CaloD0Jet80Eta2p1_v1, process.HLT_PuAK4CalobJet80Eta2p1_v1, process.HLT_HIIterativeTracking_v1, process.HLT_HIIterativeTrackingForGlobalPt8_v1, process.HLT_HIIterativeTrackingForCalo60Jets_v1, process.HLTriggerFinalPath ))
@@ -3936,13 +3936,6 @@ _customInfo['inputFile' ]=  ['file:/afs/cern.ch/user/t/twang/public/HLTSamples/D
 _customInfo['realData'  ]=  False
 from HLTrigger.Configuration.customizeHLTforALL import customizeHLTforAll
 process = customizeHLTforAll(process,_customInfo)
-
-from HLTrigger.Configuration.customizeHLTforCMSSW import customiseHLTforCMSSW
-process = customiseHLTforCMSSW(process)
-
-_fastSim = cms.untracked.bool(False)
-from HLTrigger.Configuration.customizeHLTforMC import customizeHLTforMC
-process = customizeHLTforMC(process,_fastSim)
 
 process.load('L1Trigger.L1TCalorimeter.caloConfigStage1HI_cfi')
 process.caloStage1Params.regionPUSType = cms.string("zeroWall")
