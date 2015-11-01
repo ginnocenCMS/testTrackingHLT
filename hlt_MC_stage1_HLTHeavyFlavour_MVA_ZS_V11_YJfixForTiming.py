@@ -125,7 +125,7 @@ process.hltESPCkfTrajectoryFilterForHIGlobalPt8 = cms.PSet(
   maxConsecLostHits = cms.int32( 1 ),
   chargeSignificance = cms.double( -1.0 ),
   nSigmaMinPt = cms.double( 5.0 ),
-  minPt = cms.double( 8.0 )
+  minPt = cms.double( 6.0 )
 )
 process.hltESPCkfTrajectoryBuilderForHIGlobalPt8 = cms.PSet( 
   propagatorAlong = cms.string( "PropagatorWithMaterialForHI" ),
@@ -145,7 +145,7 @@ process.HLTPSetLowPtCkfTrajectoryFilterForHIGlobalPt8 = cms.PSet(
   ComponentType = cms.string( "CkfBaseTrajectoryFilter" ),
   minimumNumberOfHits = cms.int32( 6 ),
   chargeSignificance = cms.double( -1.0 ),
-  minPt = cms.double( 8.0 ),
+  minPt = cms.double( 6.0 ),
   nSigmaMinPt = cms.double( 5.0 ),
   minHitsMinPt = cms.int32( 3 ),
   maxLostHits = cms.int32( 1 ),
@@ -180,7 +180,7 @@ process.HLTPSetDetachedCkfTrajectoryFilterForHIGlobalPt8 = cms.PSet(
   ComponentType = cms.string( "CkfBaseTrajectoryFilter" ),
   minimumNumberOfHits = cms.int32( 6 ),
   chargeSignificance = cms.double( -1.0 ),
-  minPt = cms.double( 8.0 ),
+  minPt = cms.double( 6.0 ),
   nSigmaMinPt = cms.double( 5.0 ),
   minHitsMinPt = cms.int32( 3 ),
   maxLostHits = cms.int32( 1 ),
@@ -213,7 +213,7 @@ process.HLTPSetDetachedCkfTrajectoryBuilderForHIGlobalPt8 = cms.PSet(
   bestHitOnly = cms.bool( True )
 )
 process.HLTPSetPixelPairCkfTrajectoryFilterForHIGlobalPt8 = cms.PSet( 
-  minPt = cms.double( 8.0 ),
+  minPt = cms.double( 6.0 ),
   minHitsMinPt = cms.int32( 3 ),
   ComponentType = cms.string( "CkfBaseTrajectoryFilter" ),
   maxLostHits = cms.int32( 100 ),
@@ -3812,10 +3812,12 @@ process.timing.spyOn=cms.VPSet(
           cms.PSet(name=cms.string('iter2'),
                    modules=cms.string("hltHIIter2ClustersRefRemovalForGlobalPt8+hltHIIter2MaskedMeasurementTrackerEventForGlobalPt8+hltHIPixelLayerPairsForGlobalPt8+hltHIPixelPairSeedsForGlobalPt8+hltHIPixelPairTrackCandidatesForGlobalPt8+hltHIPixelPairGlobalPrimTracksForGlobalPt8+hltHIIter2TrackSelectionForGlobalPt8")
                    ),
-         cms.PSet(name=cms.string('hltHISiStripClustersZeroSuppression'),
-                   modules=cms.string("hltHISiStripClustersZeroSuppression+hltHITrackingSiStripRawToClustersFacilityZeroSuppression")
+         cms.PSet(name=cms.string('hltSiStripZeroSuppression'),
+                   modules=cms.string("hltSiStripZeroSuppression")
                    )
           )
+
+
 
 process.HLTriggerFirstPath = cms.Path( process.hltGetConditions + process.hltGetRaw + process.hltBoolFalse )
 process.HLT_DmesonTrackingGlobalPt8_Dpt20_v1 = cms.Path( process.HLTBeginSequence + process.hltL1sZeroBias + process.hltPreDmesonTrackingGlobalPt8Dpt20 + process.HLTHIPixelClusterSplitting + process.HLTDoHITrackingLocalStripSequenceZeroSuppression + process.HLTHIIterativeTrackingForGlobalPt8 + process.hltHIFullTrackCandsForDmesonGlobalPt8 + process.hltHIFullTrackFilterForDmesonGlobalPt8 + process.HLTtktkVtxForDmesonGlobal8Dpt20 + process.HLTktkFilterForDmesonGlobal8Dp20 + process.HLTEndSequence )
