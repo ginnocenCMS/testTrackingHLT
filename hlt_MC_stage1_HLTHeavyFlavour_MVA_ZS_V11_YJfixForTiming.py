@@ -3846,8 +3846,8 @@ process.HLTSchedule = cms.Schedule( *(process.HLTriggerFirstPath, process.HLT_Dm
 process.source = cms.Source( "PoolSource",
     fileNames = cms.untracked.vstring(
         #'file:/afs/cern.ch/user/t/twang/public/HLTSamples/D0pt35/step3_RAW2DIGI_L1Reco_RECO_100_1_wFV.root',
-        #'file:/afs/cern.ch/work/g/ginnocen/public/FilesVirginRaw/VirginRAW_2010_HICorePhysics_SKIM_v2_Cent_0_5_320.root'
-         'file:/afs/cern.ch/work/g/ginnocen/public/FilesVirginRaw/VirginRAW_2010_HICorePhysics_SKIM_v2_Cent_75_100_324.root'
+        'file:/afs/cern.ch/work/g/ginnocen/public/FilesVirginRaw/VirginRAW_2010_HICorePhysics_SKIM_v2_Cent_0_5_320.root'
+        #'file:/afs/cern.ch/work/g/ginnocen/public/FilesVirginRaw/VirginRAW_2010_HICorePhysics_SKIM_v2_Cent_75_100_324.root'
     ),
     inputCommands = cms.untracked.vstring(
         'keep *'
@@ -3966,8 +3966,8 @@ _customInfo['inputFiles'][False] = "file:RelVal_Raw_GRun_MC.root"
 _customInfo['maxEvents' ]=  20
 _customInfo['globalTag' ]= "75X_mcRun2_HeavyIon_v7"
 #_customInfo['inputFile' ]=  ['file:/afs/cern.ch/user/t/twang/public/HLTSamples/D0pt35/step3_RAW2DIGI_L1Reco_RECO_100_1_wFV.root']
-#_customInfo['inputFile' ]=  ['file:/afs/cern.ch/work/g/ginnocen/public/FilesVirginRaw/VirginRAW_2010_HICorePhysics_SKIM_v2_Cent_0_5_320.root']
-_customInfo['inputFile' ]=  ['file:/afs/cern.ch/work/g/ginnocen/public/FilesVirginRaw/VirginRAW_2010_HICorePhysics_SKIM_v2_Cent_75_100_324.root']
+_customInfo['inputFile' ]=  ['file:/afs/cern.ch/work/g/ginnocen/public/FilesVirginRaw/VirginRAW_2010_HICorePhysics_SKIM_v2_Cent_0_5_320.root']
+#_customInfo['inputFile' ]=  ['file:/afs/cern.ch/work/g/ginnocen/public/FilesVirginRaw/VirginRAW_2010_HICorePhysics_SKIM_v2_Cent_75_100_324.root']
 _customInfo['realData'  ]=  False
 from HLTrigger.Configuration.customizeHLTforALL import customizeHLTforAll
 process = customizeHLTforAll(process,_customInfo)
@@ -3983,7 +3983,7 @@ process.hltbitanalysis.l1GtReadoutRecord = cms.InputTag("simGtDigis","","TEST")
 process.hltbitanalysis.UseTFileService = cms.untracked.bool(True)
 process.hltBitAnalysis = cms.EndPath(process.hltbitanalysis)
 process.TFileService = cms.Service("TFileService",
-                                   fileName=cms.string("openHLT_HF.root"))
+                                   fileName=cms.string("openHLT_HF_Cent05.root"))
 from CondCore.DBCommon.CondDBSetup_cfi import *
 process.beamspot = cms.ESSource("PoolDBESSource",CondDBSetup,
                                 toGet = cms.VPSet(cms.PSet( record = cms.string('BeamSpotObjectsRcd'),
