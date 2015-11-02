@@ -3816,14 +3816,14 @@ process.timing.spyOn=cms.VPSet(
                    modules=cms.string("hltSiStripZeroSuppression")
                    ),
          cms.PSet(name=cms.string('Dfilter20'),
-                   modules=cms.string("HLTtktkVtxForDmesonGlobal8Dpt20+HLTktkFilterForDmesonGlobal8Dp20")
+                   modules=cms.string("HLTtktkVtxForDmesonGlobal8Dpt40+HLTktkFilterForDmesonGlobal8Dp40")
                    ),
          cms.PSet(name=cms.string('Dfilter40'),
                    modules=cms.string("HLTtktkVtxForDmesonGlobal8Dpt40+HLTktkFilterForDmesonGlobal8Dp40")
                    ),
          cms.PSet(name=cms.string('Dfilter60'),
-                   modules=cms.string("HLTtktkVtxForDmesonGlobal8Dpt60+HLTktkFilterForDmesonGlobal8Dp60"),
-                   )
+                   modules=cms.string("HLTtktkVtxForDmesonGlobal8Dpt60+HLTktkFilterForDmesonGlobal8Dp60")
+                   ),
           )
 
 
