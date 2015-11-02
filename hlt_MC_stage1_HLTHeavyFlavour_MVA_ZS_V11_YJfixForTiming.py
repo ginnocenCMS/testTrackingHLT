@@ -3814,9 +3814,17 @@ process.timing.spyOn=cms.VPSet(
                    ),
          cms.PSet(name=cms.string('hltSiStripZeroSuppression'),
                    modules=cms.string("hltSiStripZeroSuppression")
+                   ),
+         cms.PSet(name=cms.string('Dfilter20'),
+                   modules=cms.string("HLTtktkVtxForDmesonGlobal8Dpt20+HLTktkFilterForDmesonGlobal8Dp20")
+                   ),
+         cms.PSet(name=cms.string('Dfilter40'),
+                   modules=cms.string("HLTtktkVtxForDmesonGlobal8Dpt40+HLTktkFilterForDmesonGlobal8Dp40")
+                   ),
+         cms.PSet(name=cms.string('Dfilter60'),
+                   modules=cms.string("HLTtktkVtxForDmesonGlobal8Dpt60+HLTktkFilterForDmesonGlobal8Dp60"),
                    )
           )
-
 
 
 process.HLTriggerFirstPath = cms.Path( process.hltGetConditions + process.hltGetRaw + process.hltBoolFalse )
@@ -3837,7 +3845,9 @@ process.HLTSchedule = cms.Schedule( *(process.HLTriggerFirstPath, process.HLT_Dm
 
 process.source = cms.Source( "PoolSource",
     fileNames = cms.untracked.vstring(
-        'file:/afs/cern.ch/user/t/twang/public/HLTSamples/D0pt35/step3_RAW2DIGI_L1Reco_RECO_100_1_wFV.root',
+        #'file:/afs/cern.ch/user/t/twang/public/HLTSamples/D0pt35/step3_RAW2DIGI_L1Reco_RECO_100_1_wFV.root',
+        #'file:/afs/cern.ch/work/g/ginnocen/public/FilesVirginRaw/VirginRAW_2010_HICorePhysics_SKIM_v2_Cent_0_5_320.root'
+         'file:/afs/cern.ch/work/g/ginnocen/public/FilesVirginRaw/VirginRAW_2010_HICorePhysics_SKIM_v2_Cent_75_100_324.root'
     ),
     inputCommands = cms.untracked.vstring(
         'keep *'
@@ -3955,7 +3965,9 @@ _customInfo['inputFiles'][True]  = "file:RelVal_Raw_GRun_DATA.root"
 _customInfo['inputFiles'][False] = "file:RelVal_Raw_GRun_MC.root"
 _customInfo['maxEvents' ]=  20
 _customInfo['globalTag' ]= "75X_mcRun2_HeavyIon_v7"
-_customInfo['inputFile' ]=  ['file:/afs/cern.ch/user/t/twang/public/HLTSamples/D0pt35/step3_RAW2DIGI_L1Reco_RECO_100_1_wFV.root']
+#_customInfo['inputFile' ]=  ['file:/afs/cern.ch/user/t/twang/public/HLTSamples/D0pt35/step3_RAW2DIGI_L1Reco_RECO_100_1_wFV.root']
+#_customInfo['inputFile' ]=  ['file:/afs/cern.ch/work/g/ginnocen/public/FilesVirginRaw/VirginRAW_2010_HICorePhysics_SKIM_v2_Cent_0_5_320.root']
+_customInfo['inputFile' ]=  ['file:/afs/cern.ch/work/g/ginnocen/public/FilesVirginRaw/VirginRAW_2010_HICorePhysics_SKIM_v2_Cent_75_100_324.root']
 _customInfo['realData'  ]=  False
 from HLTrigger.Configuration.customizeHLTforALL import customizeHLTforAll
 process = customizeHLTforAll(process,_customInfo)
@@ -3986,11 +3998,6 @@ recordOverrides = { ('L1RCTParametersRcd', None) : ('L1RCTParametersRcd_L1TDevel
 process.GlobalTag = GlobalTag(process.GlobalTag, '75X_mcRun2_HeavyIon_v7', recordOverrides)
 process.GlobalTag.snapshotTime = cms.string("9999-12-31 23:59:59.000")
                                                                              
-process.HiGenParticleAna.genParticleSrc = cms.untracked.InputTag("genParticles")    
-process.HiGenParticleAna.stableOnly = cms.untracked.bool(False)                     
-process.ana_step = cms.Path(process.heavyIon*                                       
-      process.HiGenParticleAna                                                      
-)                                                                                   
 
 
 process.Timing=cms.Service("Timing",
