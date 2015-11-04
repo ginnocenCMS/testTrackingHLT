@@ -43,13 +43,6 @@ recordOverrides = { ('\''L1RCTParametersRcd'\'', None) : ('\''L1RCTParametersRcd
 process.GlobalTag = GlobalTag(process.GlobalTag, '\''75X_mcRun2_asymptotic_v1'\'', recordOverrides)
 process.GlobalTag.snapshotTime = cms.string("9999-12-31 23:59:59.000")' >>  hlt_MC_stage1.py
 
-echo 'from CondCore.DBCommon.CondDBSetup_cfi import *
-process.beamspot = cms.ESSource("PoolDBESSource",CondDBSetup,
-                                toGet = cms.VPSet(cms.PSet( record = cms.string('\''BeamSpotObjectsRcd'\''),
-                                                            tag= cms.string('\''NominalHICollisions2015_MCHI2_74_V5_mc'\''))),
-                                connect =cms.string('\''frontier://FrontierProd/CMS_COND_31X_BEAMSPOT'\''))
-process.es_prefer_beamspot = cms.ESPrefer("PoolDBESSource","beamspot")' >>  hlt_MC_stage1.py
-
 ### adding gen particle info & timing
 
 echo '                                                                             
