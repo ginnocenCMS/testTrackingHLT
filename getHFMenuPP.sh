@@ -39,8 +39,8 @@ echo 'process.caloConfig' >> hlt_MC_stage1.py
                                    
 echo 'process.load('\''Configuration/StandardSequences/FrontierConditions_GlobalTag_condDBv2_cff'\'')
 from Configuration.AlCa.GlobalTag_condDBv2 import GlobalTag
-recordOverrides = { ('\''L1RCTParametersRcd'\'', None) : ('\''L1RCTParametersRcd_L1TDevelCollisions_ExtendedScaleFactors_NewTau_FullEGTransparency_v1'\'', None) }      
-process.GlobalTag = GlobalTag(process.GlobalTag, '\''75X_mcRun2_asymptotic_v1'\'', recordOverrides)
+recordOverrides = { ('\''L1RCTParametersRcd'\'', None) : ('\''L1RCTParametersRcd_L1TDevelCollisions_ExtendedScaleFactorsV4_HIDisabledFGHOE'\'', None) }      
+process.GlobalTag = GlobalTag(process.GlobalTag, '\''75X_mcRun2_asymptotic_v6'\'', recordOverrides)
 process.GlobalTag.snapshotTime = cms.string("9999-12-31 23:59:59.000")' >>  hlt_MC_stage1.py
 
 echo 'from CondCore.DBCommon.CondDBSetup_cfi import *
