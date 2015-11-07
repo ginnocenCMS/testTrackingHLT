@@ -1,7 +1,7 @@
 #!bin/bash
 #prev gt 75X_mcRun2_HeavyIon_v1
 
-hltGetConfiguration /users/ginnocen/GlobaTrackingPPmenuHFlowpu/V11  --full --offline --mc --unprescale --process TEST --globaltag 75X_mcRun2_asymptotic_ppAt5TeV_v0 --l1-emulator 'stage1,gt' --l1Xml L1Menu_Collisions2015_lowPU_v4_L1T_Scales_20141121.xml --output none --max-events 100 --input file:/data/yjlee/hltTrackingStudy/sample/twang-Pythia_D0pt35p0_Pthat35_TuneZ2_5020GeV_cfi_py_step2_20151105/step2_DIGI_L1_DIGI2RAW_HLT_RAW2DIGI_L1Reco_100_1_CO2.root > hlt_MC_stage1.py 
+hltGetConfiguration /users/ginnocen/GlobaTrackingPPmenuHFlowpu/V11 --full --offline --mc --unprescale --process TEST --globaltag 75X_mcRun2_asymptotic_ppAt5TeV_v0  --l1-emulator 'stage1,gt' --l1Xml L1Menu_Collisions2015_5TeV_pp_reference_L1T_Scales_20141121.xml --output none --max-events 100 --input file:/data/yjlee/hltTrackingStudy/sample/twang-Pythia_D0pt35p0_Pthat35_TuneZ2_5020GeV_cfi_py_step2_20151105/step2_DIGI_L1_DIGI2RAW_HLT_RAW2DIGI_L1Reco_100_1_CO2.root > hlt_MC_stage1.py 
 
 sed -i '/process = cms.Process( "TEST" )/a process.load("setup_cff")' hlt_MC_stage1.py
 
@@ -43,6 +43,8 @@ recordOverrides = { ('\''L1RCTParametersRcd'\'', None) : ('\''L1RCTParametersRcd
 process.GlobalTag = GlobalTag(process.GlobalTag, '\''75X_mcRun2_asymptotic_ppAt5TeV_v0'\'', recordOverrides)
 process.GlobalTag.snapshotTime = cms.string("9999-12-31 23:59:59.000")' >>  hlt_MC_stage1.py
 
+### adding gen particle info & timing
+
 echo '                                                                             
 process.HiGenParticleAna.genParticleSrc = cms.untracked.InputTag("genParticles")    
 process.HiGenParticleAna.stableOnly = cms.untracked.bool(False)                     
@@ -57,4 +59,4 @@ process.Timing=cms.Service("Timing",
     )
 '>> hlt_MC_stage1.py
 
-cmsRun hlt_MC_stage1.py >& triggerCheck.log
+#cmsRun hlt_MC_stage1.py >& triggerCheck_tawei_GTkv6.log
