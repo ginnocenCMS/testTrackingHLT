@@ -2,7 +2,7 @@
 #prev gt 75X_mcRun2_HeavyIon_v1
 #works in 755_patch1, not good setup for 755
 
-hltGetConfiguration /users/ginnocen/HLTCleanedHFPbPbmenu755/V7 --full --offline --mc --process TEST --globaltag auto:run2_mc_HIon --l1-emulator 'stage1,gt' --l1Xml L1Menu_CollisionsHeavyIons2015_v2_L1T_Scales_20141121.xml --output none --max-events -1 --input  file:/afs/cern.ch/user/t/twang/public/HLTSamples/D0pt35/step3_RAW2DIGI_L1Reco_RECO_100_1_wFV.root > hlt_MC_stage1_PbPb_755_patch1.py
+hltGetConfiguration /users/ginnocen/HLTCleanedHFPbPbmenu755/V11 --full --offline --mc --process TEST --globaltag auto:run2_mc_HIon --l1-emulator 'stage1,gt' --l1Xml L1Menu_CollisionsHeavyIons2015_v3.xml --output none --max-events -1 --input  file:/afs/cern.ch/user/t/twang/public/HLTSamples/D0pt35/step3_RAW2DIGI_L1Reco_RECO_100_1_wFV.root > hlt_MC_stage1_PbPb_755_patch1.py
 
 sed -i '/process = cms.Process( "TEST" )/a process.load("setup_cff")' hlt_MC_stage1_PbPb_755_patch1.py
 
