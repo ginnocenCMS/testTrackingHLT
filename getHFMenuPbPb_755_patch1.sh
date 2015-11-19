@@ -40,6 +40,10 @@ process.load('\''L1Trigger.L1TCalorimeter.caloStage1Params_HI_cfi'\'')
 '>> hlt_MC_stage1_PbPb_755_patch1.py
 
 echo '
+process.caloStage1Params.minimumBiasThresholds = cms.vint32(1,1,2,2)
+'>> hlt_MC_stage1_PbPb_755_patch1.py
+
+echo '
 process.Timing=cms.Service("Timing",
     useJobReport = cms.untracked.bool(True)
     )
